@@ -1,0 +1,31 @@
+{
+  "name": "p3_30039073",
+  "version": "1.0.0",
+  "description": "Paquetes para Programación III",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "node --watch ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markyuni/P3_30039073.git"
+  },
+  "author": "Jesse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Markyuni/P3_30039073/issues"
+  },
+  "homepage": "https://github.com/Markyuni/P3_30039073#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "sqlite": "^5.0.1"
+  }
+}
