@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Modificación de Categorías
+	</title>
+</head>
+
+<body>
+	<h1 style="text-align: center; font-weight: bold;">Modificar Categorías</h1>
+	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+	<p>Elija la categoría a modificar.</p>
+	<div id="form">
+	<form action="/modificarCategoria" method="post">
+		<div id="form-nombre">
+      		<label for="nombre">Nombre del Producto</label>
+			<input type="text" name="nombre" id="nombre">
+    	</div>
+    	<div id="form-id">
+    		<label for="id">ID a Actualizar</label>
+    		<input type="number" name="id" id="id">
+    	</div>
+	<button type="submit">Enviar</button>
+	</div>
+	</form>
+</body>
+</html>

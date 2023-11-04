@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Listado de Categorías
+	</title>
+</head>
+
+<body>
+	<h1 style="text-align: center; font-weight: bold;">Listado de Categorías</h1>
+	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+	<table>
+		<thead>
+			<tr>
+				<th id="header-nombre">Nombre</th>
+				<th id="header-id">ID</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<% data.forEach(function(row) { %>
+			<tr>
+				<td><%= row.nombre %></td>
+				<td><%= row.id %></td>
+			</tr>
+			<% }); %>
+		</tbody>
+	</table>
+</body>
+</html>

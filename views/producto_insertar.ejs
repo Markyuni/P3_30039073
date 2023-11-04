@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Inserción de Productos
+	</title>
+</head>
+
+<body>
+	<h1 style="text-align: center; font-weight: bold;">Insertar Productos</h1>
+	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+	<form action="/insertarProducto" method="post">
+		<div id="form-nombre">
+      		<label for="nombre">Nombre del Producto</label>
+			<input type="text" name="nombre" id="nombre">
+    	</div>
+    	<div id="form-color">
+        	<label for="color">Color</label>
+        	<input type="text" name="color" id="color">
+    	</div>
+    	<div id="form-talla">
+        	<label for="talla">Talla</label>
+        	<input type="text" name="talla" id="talla">
+    	</div>
+    	<div id="form-codigo">
+        	<label for="codigo">Código</label>
+        	<input type="text" name="codigo" id="codigo">
+    	</div>
+    	<div id="form-precio">
+        	<label for="precio">Precio</label>
+        	<input type="text" name="precio" id="precio">
+    	</div>
+      	<div id="form-descripcion">
+        	<label for="descripcion">Descripción</label>
+        	<input type="textarea" name="descripcion" id="descripcion">
+    	</div>
+    	<div id="form-categoria">
+			<label for="categoria">Categoría del Producto</label>
+			<input type="number" name="categoria" id="categoria">
+    	</div>
+		<button type="submit">Enviar</button>
+	</form>
+</body>
+</html>

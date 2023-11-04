@@ -6,24 +6,72 @@ let db = new sqlite3.Database(':memory:', (err) => {
     }
     console.log('Connected to the in-memory SQlite database.');
 
-    db.run("CREATE TABLE IF NOT EXISTS categorias (nombre TEXT NOT NULL)");
-    db.run("CREATE TABLE IF NOT EXISTS productos (nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio INTEGER NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER PRIMARY KEY AUTOINCREMENT)")
-    db.run("CREATE TABLE IF NOT EXISTS imagenes (producto_id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT NOT NULL, destacado TEXT NOT NULL)")
+    db.get("PRAGMA foreign_keys = ON");
+
+    db.run("CREATE TABLE IF NOT EXISTS categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL)");
+    db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio INTEGER NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id))");
+    //por algun motivo, la tabla imagenes ignora el foreign_keys = ON anterior, asi que añadi otro
+    db.get("PRAGMA foreign_keys = ON");
+    db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id))");
 });
 
 
 module.exports = {
-    insert: function (name, email, comment, date, myIP, pais, contraseña) {
-        db.run("INSERT INTO contactos (name, email, comment, date, myIP, pais, contraseña) VALUES (?, ?, ?, ?, ?, ?)", [name, email, comment, date, myIP, pais, contraseña], function (err) {
+    insertProducto: function (nombre, color, talla, codigo, precio, descripcion, categoria_id) {
+        db.run("INSERT INTO productos (nombre, color, talla, codigo, precio, descripcion, categoria_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, color, talla, codigo, precio, descripcion, categoria_id], function (err) {
             if (err) {
                 return console.log(err.message);
             }
             // get the last insert id
-            console.log(`A row has been inserted with rowid ${this.lastID}`);
+            console.log(`A row in "productos" has been inserted with rowid ${this.lastID}`);
         });
     },
-    select: function (callback) {
-        db.all("SELECT * FROM contactos", [], (err, rows) => {
+    insertImagen: function (url, producto_id) {
+        db.run("INSERT INTO imagenes (url, producto_id) VALUES (?, ?)", [url, producto_id], function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            //get the last insert id
+            console.log(`A row in "imagenes" has been inserted with rowid ${this.lastID}`);
+        });
+    },
+    insertCategoria: function (nombre) {
+        db.run("INSERT INTO categorias (nombre) VALUES (?)", [nombre], function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            //get the last insert id
+            console.log(`A row in "categorias" has been inserted with rowid ${this.lastID}`);
+        });
+    },
+    updateProducto: function (nombre, color, talla, codigo, precio, descripcion, categoria_id, id) {
+        db.run("UPDATE productos SET (nombre, color, talla, codigo, precio, descripcion, categoria_id) = (?, ?, ?, ?, ?, ?, ?) WHERE id = ?", [nombre, color, talla, codigo, precio, descripcion, categoria_id, id], function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            //get the last updated id
+            console.log(`A row in "productos" has been updated on rowid: `, id);
+        });
+    },
+    updateCategoria: function (nombre, id) {
+        db.run("UPDATE categorias SET nombre = ? WHERE id = ?", [nombre, id], function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            //get the last insert id
+            console.log(`A row in "categorias" has been updated on rowid: `, id);
+        })
+    },
+    selectProductoImagen: function (callback) {
+        db.all("SELECT * FROM productos, imagenes", [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            callback(rows);
+        });
+    },
+    selectCategoria: function (callback) {
+        db.all("SELECT * FROM categorias", [], (err, rows) => {
             if (err) {
                 throw err;
             }
