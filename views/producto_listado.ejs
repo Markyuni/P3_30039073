@@ -7,16 +7,19 @@
 	<title>
 		Listado de Productos
 	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 
 <body>
 	<h1 style="text-align: center; font-weight: bold;">Listado de Productos</h1>
 	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+	<h2>Productos</h2>
 	<p>Para que se vean las tablas correctamente, es necesario que se agreguen tanto los productos como las imagenes.</p>
 	<table>
 		<thead>
 			<tr>
-				<th id="header-nombre">ID</th>
+			<!--	<th>ID</th>	-->
 				<th>Nombre</th>
 				<th>Color</th>
 				<th>Talla</th>
@@ -24,13 +27,12 @@
 				<th>Precio</th>
 				<th>Descripción</th>
 				<th>Categoría de Producto</th>
-				<th id="header-imagenes">Imágenes</th>	
 			</tr>	
 		</thead>
 		<tbody>
 			<% data.forEach(function(row) { %>
 			<tr>
-				<td><%= row.id %></td>
+			<!--	<td><%= row.id %></td>	-->
 				<td><%= row.nombre %></td>
 				<td><%= row.color %></td>
 				<td><%= row.talla %></td>
@@ -38,10 +40,32 @@
 				<td><%= row.precio %></td>
 				<td><%= row.descripcion %></td>
 				<td><%= row.categoria_id %></td>
-				<td><%= row.url %></td>	
 			</tr>
 			<% }); %>
 		</tbody>
 	</table>
+
+	<h2>Imágenes</h2>
+		<table>
+		<thead>
+			<tr>
+			<!--	<th>ID</th>	-->
+				<th>ID del Producto</th>
+				<th>Imágen</th>
+				<th>Destacado</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<% data2.forEach(function(row2) { %>
+			<tr>
+			<!--	<td><%= row2.id %></td>	-->
+				<td><%= row2.producto_id %></td>
+				<td><%= row2.url %></td>
+				<td><%= row2.destacado %></td>
+			</tr>
+			<% }); %>
+		</tbody>
+	</table>
+
 </body>
 </html>

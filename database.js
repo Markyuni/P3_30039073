@@ -26,8 +26,8 @@ module.exports = {
             console.log(`A row in "productos" has been inserted with rowid ${this.lastID}`);
         });
     },
-    insertImagen: function (url, producto_id) {
-        db.run("INSERT INTO imagenes (url, producto_id) VALUES (?, ?)", [url, producto_id], function (err) {
+    insertImagen: function (url, producto_id, destacado) {
+        db.run("INSERT INTO imagenes (url, producto_id, destacado) VALUES (?, ?, ?)", [url, producto_id, destacado], function (err) {
             if (err) {
                 return console.log(err.message);
             }
@@ -63,11 +63,17 @@ module.exports = {
         })
     },
     selectProductoImagen: function (callback) {
-        db.all("SELECT * FROM productos, imagenes", [], (err, rows) => {
+        db.all("SELECT * FROM productos", [], (err, rows) => {
             if (err) {
                 throw err;
-            }
-            callback(rows);
+            } else {
+                db.all("SELECT * from imagenes ORDER BY producto_id, destacado DESC", [], (err, rows2) => {
+                    if (err) {
+                        throw err;
+                    }
+                    callback(rows, rows2);
+                });
+            };
         });
     },
     selectCategoria: function (callback) {

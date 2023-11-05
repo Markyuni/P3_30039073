@@ -15,9 +15,12 @@ router.get('/index', function(req, res, next) {
 
 /* GET Product Listing page. */
 router.get('/producto_listado', function(req, res, next) {
-  db.selectProductoImagen((rows) => {
-    console.log(rows);
-    res.render("producto_listado", { data: rows });
+  db.selectProductoImagen((rows, rows2) => {
+    console.log(rows, rows2);
+    res.render("producto_listado", {
+      data: rows,
+      data2: rows2
+    });
   });
 });
 
@@ -103,10 +106,11 @@ router.post('/modificarProducto', function(req, res, next) {
 router.post('/agregarImagen', function(req, res, next) {
   let url = req.body.url;
   let producto_id = req.body.producto_id;
+  let destacado = req.body.destacado;
 
-  console.log({ url, producto_id });
+  console.log({ url, producto_id, destacado });
 
-  db.insertImagen(url, producto_id);
+  db.insertImagen(url, producto_id, destacado);
 
   res.redirect('/imagen_agregar');
 });
