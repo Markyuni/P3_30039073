@@ -6,13 +6,11 @@ let db = new sqlite3.Database(':memory:', (err) => {
     }
     console.log('Connected to the in-memory SQlite database.');
 
-    db.get("PRAGMA foreign_keys = ON");
-
     db.run("CREATE TABLE IF NOT EXISTS categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL)");
     db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio INTEGER NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id))");
-    //por algun motivo, la tabla imagenes ignora el foreign_keys = ON anterior, asi que añadi otro
-    db.get("PRAGMA foreign_keys = ON");
     db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id))");
+
+    db.get("PRAGMA foreign_keys = ON");
 });
 
 

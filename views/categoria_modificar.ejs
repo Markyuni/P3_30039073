@@ -9,24 +9,31 @@
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
 </head>
 
 <body>
-	<h1 style="text-align: center; font-weight: bold;">Modificar Categorías</h1>
-	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
-	<p>Elija la categoría a modificar.</p>
-	<div id="form">
-	<form action="/modificarCategoria" method="post">
-		<div id="form-nombre">
-      		<label for="nombre">Nombre del Producto</label>
-			<input type="text" name="nombre" id="nombre">
-    	</div>
-    	<div id="form-id">
-    		<label for="id">ID a Actualizar</label>
-    		<input type="number" name="id" id="id">
-    	</div>
-	<button type="submit">Enviar</button>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Modificar Categorías</h1>
+		<hr>
+		<p>Elija la categoría a modificar.</p>
+		<div id="form">
+			<form action="/modificarCategoria" method="post">
+				<div id="form-nombre">
+		      		<label for="nombre">Nombre del Producto</label>
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre">
+		    	</div>
+		    	<div id="form-id">
+		    		<label for="id">ID a Actualizar</label>
+		    		<input type="number" min="1" name="id" placeholder="ID" id="id">
+		    	</div>
+		    	<br>
+		    	<div id="form-submit">
+					<button type="submit">Enviar</button>
+				</div>
+			</form>
+		</div>
+		<p style="text-align: center;"><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
 	</div>
-	</form>
 </body>
 </html>

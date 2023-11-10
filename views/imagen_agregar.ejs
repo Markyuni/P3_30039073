@@ -9,27 +9,34 @@
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
 </head>
 
 <body>
-	<h1 style="text-align: center; font-weight: bold;">Agregar Imágenes</h1>
-	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
-	<div id="form">
-	<form action="/agregarImagen" method="post">
-		<div id="form-url">
-      		<label for="url">URL de la Imágen</label>
-			<input type="text" name="url" id="url">
-    	</div>
-    	<div id="form-producto_id">
-    		<label for="producto_id">ID del Producto</label>
-    		<input type="number" name="producto_id" id="producto_id">
-    	</div>
-    	<div id="form-destacado">
-    		<label for="destacado">Destacado (0-1)</label>
-    		<input type="number" name="destacado" id="destacado">
-    	</div>
-	<button type="submit">Enviar</button>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Agregar Imágenes</h1>
+		<hr>
+		<div id="form">
+			<form action="/agregarImagen" method="post">
+				<div id="form-url">
+		      		<label for="url">URL de la Imágen</label>
+					<input type="text" name="url" placeholder="URL" id="url">
+		    	</div>
+		    	<div id="form-producto_id">
+		    		<label for="producto_id">ID del Producto</label>
+		    		<input type="number" min="1" name="producto_id" placeholder="ID" id="producto_id">
+		    	</div>
+		    	<div id="form-destacado">
+		    		<label for="destacado">Destacado (0-1)</label>
+		    		<input type="number" max="1" min="0" name="destacado" placeholder="Destacado" id="destacado">
+		    	</div>
+		    	<br>
+		    	<div id="form-submit">
+					<button type="submit">Enviar</button>
+				</div>
+			</form>
+		</div>
+		<p style="text-align: center;"><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
 	</div>
-	</form>
 </body>
 </html>

@@ -1,0 +1,93 @@
+body {
+	background-color: #15181C;
+	color: #fff;
+	font-family: "Century Gothic", Century, sans-serif;
+	font-size: 18px;
+	line-height: 24px;
+	margin: 10px;
+	padding: 5% 10%;
+}
+
+hr {
+	margin: 30px 0px;
+	color: #15181C;
+}
+
+table, th, td {
+	border: 2px solid #0D0D0D;
+	padding: 5px 0px;
+}
+
+table {
+	border-collapse: collapse;
+	position: center;
+	text-align: center;
+	table-layout: fixed;
+	width: 100%;
+	word-break: break-word;
+}
+
+thead {
+	color: #142B4F;
+	font-size: 20px;
+}
+
+tbody {
+	background-color: #15181C;
+	color: white;
+}
+
+td {
+	font-size: 16px;
+}
+
+a:link, a:visited {
+	color: #142b4f;
+	font-weight: bold;
+	margin: 20px;
+	text-decoration: none;
+}
+
+#screen {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	padding: 30px;
+}
+
+#cat-id {
+	width: 10%;
+}
+
+#prod-nombre {
+	width: 20%;
+}
+
+#prod-color {
+	width: 10%;
+}
+
+#prod-talla {
+	width: 10%;
+}
+
+#prod-codigo {
+	width: 15%;
+}
+
+#prod-precio {
+	width: 10%;
+}
+
+#prod-categoria {
+	width: 10%;
+}
+
+#img-prod-id {
+	width: 15%;
+}
+
+#img-destacado {
+	width: 15%;
+}

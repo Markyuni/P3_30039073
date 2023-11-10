@@ -9,26 +9,31 @@
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style tablas.css">
 </head>
 
 <body>
-	<h1 style="text-align: center; font-weight: bold;">Listado de Categorías</h1>
-	<p><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
-	<table>
-		<thead>
-			<tr>
-				<th id="header-nombre">Nombre</th>
-				<th id="header-id">ID</th>
-			</tr>	
-		</thead>
-		<tbody>
-			<% data.forEach(function(row) { %>
-			<tr>
-				<td><%= row.nombre %></td>
-				<td><%= row.id %></td>
-			</tr>
-			<% }); %>
-		</tbody>
-	</table>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Listado de Categorías</h1>
+		<hr>
+		<table>
+			<thead>
+				<tr>
+					<th id="cat-nombre">Nombre</th>
+					<th id="cat-id">ID</th>
+				</tr>	
+			</thead>
+			<tbody>
+				<% data.forEach(function(row) { %>
+				<tr>
+					<td><%= row.nombre %></td>
+					<td><%= row.id %></td>
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>
+		<p style="text-align: center;"><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+	</div>
 </body>
+
 </html>

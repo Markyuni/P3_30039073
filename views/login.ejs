@@ -9,15 +9,21 @@
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
 </head>
 
 <body>
-	<div id="inicio">
-		<h2>
-			Inicio
-		</h2>
-		<p>Ingrese el Usuario de Administrador</a></p>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Inicio</h1>
 		<hr>
+		<div id="text">
+			<p style="margin: 0px;">Ingrese el Usuario y Contraseña de Administrador.</a></p>
+			<span>
+				Usuario: dashspam13
+				<br>
+				Contraseña: clicker20X_
+			</span>
+		</div>
 		<form action="/login" method="post">
 			<div id="inicio-admin">
 				<label for="admin">Usuario</label>
@@ -28,7 +34,9 @@
 				<input type="password" id="pwd" name="pwd">
 			</div>
 			<br>
-			<button type="submit">Enviar</button>
+			<div id="form-submit">
+				<button type="submit">Enviar</button>
+			</div>
 		</form>
 	</div>
 </body>
