@@ -20,7 +20,6 @@ table, th, td {
 
 table {
 	border-collapse: collapse;
-	position: center;
 	text-align: center;
 	table-layout: fixed;
 	width: 100%;
@@ -29,7 +28,6 @@ table {
 
 thead {
 	color: #142B4F;
-	font-size: 20px;
 }
 
 tbody {
@@ -38,7 +36,7 @@ tbody {
 }
 
 td {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 a:link, a:visited {
@@ -54,6 +52,20 @@ a:link, a:visited {
 	color: #142b4f;
 	display: block;
 	padding: 30px;
+}
+
+#buttons {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+#buttons a {
+	color: white;
+	margin: 0px;
+	padding: 10px 0px;
+	font-weight: normal;
 }
 
 #cat-id {
@@ -90,4 +102,29 @@ a:link, a:visited {
 
 #img-destacado {
 	width: 15%;
+}
+
+#prod-acciones, #img-acciones {
+	width: 10%;
+}
+
+.view_button {
+	background-color: green;
+	border: none;
+	display: inline-block;
+	font-family: "Malgun Gothic";
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+}
+
+.delete_button {
+	background-color: orangered;
+	border: none;
+	display: inline-block;
+	color: white;
+	font-family: "Malgun Gothic";
+	padding: 10px;
+	width: 100%;
+	height: 100%;
 }

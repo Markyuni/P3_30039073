@@ -16,6 +16,7 @@
 	<div id="screen">
 		<h1 style="text-align: center; font-weight: bold;">Listado de Categorías</h1>
 		<hr>
+		<% if (data.length > 0) { %>
 		<table>
 			<thead>
 				<tr>
@@ -32,7 +33,11 @@
 				<% }); %>
 			</tbody>
 		</table>
-		<p style="text-align: center;"><a target="_self" href="/index">Volver a la Interfaz Principal</a></p>
+		<% } else { %>
+		<p style="text-align: center; font-weight: normal;">No existen categorías actualmente.</p>
+		<% }; %>
+		<br>
+		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
 	</div>
 </body>
 

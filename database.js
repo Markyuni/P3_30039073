@@ -7,8 +7,8 @@ let db = new sqlite3.Database(':memory:', (err) => {
     console.log('Connected to the in-memory SQlite database.');
 
     db.run("CREATE TABLE IF NOT EXISTS categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL)");
-    db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio INTEGER NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id))");
-    db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id))");
+    db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio INTEGER NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE)");
+    db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE)");
 
     db.get("PRAGMA foreign_keys = ON");
 });
@@ -60,6 +60,51 @@ module.exports = {
             console.log(`A row in "categorias" has been updated on rowid: `, id);
         })
     },
+    deleteCategoria: function (id) {
+        db.run("DELETE FROM categorias WHERE id = ?", [id], function (err) {
+            if (err) {
+                throw err;
+            } else {
+                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'categorias'", function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    //get the last deleted id
+                    console.log(`A row in "categorias" has been deleted on rowid: `, id);
+                });
+            };
+        });
+    },
+    deleteProducto: function (id) {
+        db.run("DELETE FROM productos WHERE id = ?", [id], function (err) {
+            if (err) {
+                throw err;
+            } else {
+                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'productos'", function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    //get the last deleted id
+                    console.log(`A row in "productos" has been deleted on rowid: `, id);
+                });
+            };
+        });
+    },
+    deleteImagen: function (id) {
+        db.run("DELETE FROM imagenes WHERE id = ?", [id], function (err) {
+            if (err) {
+                throw err;
+            } else {
+                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'imagenes'", function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    //get the last deleted id
+                    console.log(`A row in "imagenes" has been deleted on rowid: `, id);
+                });
+            };
+        });
+    },
     selectProductoImagen: function (callback) {
         db.all("SELECT * FROM productos", [], (err, rows) => {
             if (err) {
@@ -80,6 +125,20 @@ module.exports = {
                 throw err;
             }
             callback(rows);
+        });
+    },
+    selectProdImg: function (callback) {
+        db.all("SELECT * FROM productos", [], (err, info_prod) => {
+            if (err) {
+                throw err;
+            } else {
+                db.all("SELECT url FROM imagenes WHERE destacado = 1", [], (err, info_img) => {
+                    if (err) {
+                        throw err;
+                    }
+                    callback(info_prod, info_img);
+                });
+            };
         });
     }
 }

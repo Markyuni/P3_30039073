@@ -8,9 +8,19 @@ router.get('/', function(req, res, next) {
   res.render('login');
 });
 
-/* GET home page. */
-router.get('/index', function(req, res, next) {
-  res.render('index');
+/* GET admin home page. */
+router.get('/index_admin', function(req, res, next) {
+  res.render('index_admin');
+});
+
+/* GET public home page */
+router.get('/index_public', function(req, res, next) {
+  db.selectProdImg((info_prod, info_img) => {
+    res.render('index_public', {
+      prod: info_prod,
+      img: info_img
+    });
+  });
 });
 
 /* GET Product Listing page. */
@@ -64,7 +74,7 @@ router.post('/login', function(req, res, next) {
   console.log({ admin, pwd });
 
   if (admin === process.env.ADMIN && pwd === process.env.PASSWORD) {
-    res.redirect('/index');
+    res.redirect('/index_admin');
   } else {
     res.redirect('/');
   }
@@ -84,6 +94,16 @@ router.post('/insertarProducto', function(req, res, next) {
   db.insertProducto(nombre, color, talla, codigo, precio, descripcion, categoria_id);
 
   res.redirect('/producto_insertar');
+});
+
+router.post('/eliminarProducto', function(req, res, next) {
+  let id = req.body.id;
+
+  console.log({ id });
+
+  db.deleteProducto(id);
+
+  res.redirect('/producto_listado');
 });
 
 router.post('/modificarProducto', function(req, res, next) {
@@ -113,6 +133,16 @@ router.post('/agregarImagen', function(req, res, next) {
   db.insertImagen(url, producto_id, destacado);
 
   res.redirect('/imagen_agregar');
+});
+
+router.post('/eliminarImagen', function(req, res, next) {
+  let id = req.body.id;
+
+  console.log({ id });
+
+  db.deleteImagen(id);
+
+  res.redirect('/producto_listado');
 });
 
 router.post('/insertarCategoria', function(req, res, next) {
