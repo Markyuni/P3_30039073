@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Listado de Categorías
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style tablas.css">
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Listado de Categorías</h1>
+		<hr>
+		<% if (data.length > 0) { %>
+		<table>
+			<thead>
+				<tr>
+					<th id="cat-nombre">Nombre</th>
+					<th id="cat-id">ID</th>
+				</tr>	
+			</thead>
+			<tbody>
+				<% data.forEach(function(row) { %>
+				<tr>
+					<td><%= row.nombre %></td>
+					<td><%= row.id %></td>
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>
+		<% } else { %>
+		<p style="text-align: center; font-weight: normal;">No existen categorías actualmente.</p>
+		<% }; %>
+		<br>
+		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
+	</div>
+</body>
+
+</html>

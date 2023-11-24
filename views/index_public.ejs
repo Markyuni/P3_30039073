@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interfaz Pública</title>
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style interfaz.css" />
+    <style>
+
+
+      .lista-productos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .product {
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .product img {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+      }
+
+      .product h2 {
+        margin: 10px 0;
+      }
+
+      .product p {
+        margin: 0;
+      }
+
+      
+      .lista-productos.list-view {
+        grid-template-columns: 1fr;
+      }
+
+      .list-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>hola mundo</h1>
+    <div id="screen">
+      <h1 style="text-align: center; font-weight: bold">
+        Lentes de Sol para Toda la Familia
+      </h1>
+      <h2 style="text-align: center; font-weight: normal">Interfaz Pública</h2>
+      <hr />
+      <button class="list-button">Switch to list view</button>
+      <div class="lista-productos">
+        <% products.forEach(function(product) { %>
+        <div class="product">
+          <img src="<%= product.img %>" alt="<%= product.nombre %>" />
+          <h2><%= product.nombre %></h2>
+          <p><%= product.descripcion %></p>
+          <p>Precio: <%= product.precio %></p>
+        </div>
+        <% }); %>
+      </div>
+
+      <script>
+        document.querySelector('.list-button').addEventListener('click', function() {
+          var productList = document.querySelector('.lista-productos');
+          productList.classList.toggle('list-view');
+  
+          this.textContent = productList.classList.contains('list-view')
+            ? 'Switch to grid view'
+            : 'Switch to list view';
+        });
+      </script>
+    </div>
+  </body>
+</html>
