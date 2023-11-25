@@ -15,16 +15,9 @@ router.get('/index_admin', function(req, res, next) {
 
 /* GET public home page */
 router.get('/index_public', function(req, res, next) {
-  db.selectProdImg((info_prod, info_img) => {
-    
-    data = {
-      prod: info_prod,
-      img: info_img
-    }
-
+  db.selectProdImg((data) => {
     console.log(data)
-
-    res.render('index_public', { data });
+    res.render('index_public', { products: data });
   });
 });
 
