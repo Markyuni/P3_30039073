@@ -56,9 +56,26 @@ module.exports = {
             if (err) {
                 return console.log(err.message);
             }
-            //get the last insert id
+            //get the last updated id
             console.log(`A row in "categorias" has been updated on rowid: `, id);
-        })
+        });
+    },
+    updateImagen1: function (callback) {
+        db.all("SELECT * FROM imagenes", [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            callback(rows);
+        });
+    },
+    updateImagen2: function (url, producto_id, destacado, id) {
+        db.run("UPDATE imagenes SET (url, producto_id, destacado) = (?, ?, ?) WHERE id = ?", [url, producto_id, destacado, id], function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            //get the last updated id
+            console.log(`A row in "imagenes" has been updated on rowid: `, id);
+        });
     },
     deleteCategoria: function (id) {
         db.run("DELETE FROM categorias WHERE id = ?", [id], function (err) {
@@ -132,11 +149,24 @@ module.exports = {
             if (err) {
                 throw err;
             } else {
-                db.all("SELECT url FROM imagenes WHERE destacado = 1", [], (err, info_img) => {
+                db.all("SELECT url, producto_id FROM imagenes WHERE destacado = 1", [], (err, info_img) => {
                     if (err) {
                         throw err;
                     }
-                    callback(info_prod, info_img);
+
+                    // Crear un nuevo arreglo que combina info_prod e info_img
+                    const combined = info_prod.map(prod => {
+                        // Encontrar la imagen correspondiente para este producto
+                        const img = info_img.find(i => i.producto_id === prod.id);
+
+                        // Devolver un nuevo objeto que combina la información del producto e imagen
+                        return {
+                            ...prod,
+                            img: img ? img.url : null
+                        };
+                    });
+
+                    callback(combined);
                 });
             };
         });
