@@ -60,35 +60,19 @@ module.exports = {
             console.log(`A row in "categorias" has been updated on rowid: `, id);
         });
     },
-    updateImagen1: function (callback) {
-        db.all("SELECT * FROM imagenes", [], (err, rows) => {
+    updateImagen1: function (id) {
+        db.all("SELECT * FROM imagenes WHERE id = ?", [id], function (err) {
             if (err) {
                 throw err;
             }
+
             callback(rows);
-        });
-    },
-    updateImagen2: function (url, producto_id, destacado, id) {
-        db.run("UPDATE imagenes SET (url, producto_id, destacado) = (?, ?, ?) WHERE id = ?", [url, producto_id, destacado, id], function (err) {
-            if (err) {
-                return console.log(err.message);
-            }
-            //get the last updated id
-            console.log(`A row in "imagenes" has been updated on rowid: `, id);
         });
     },
     deleteCategoria: function (id) {
         db.run("DELETE FROM categorias WHERE id = ?", [id], function (err) {
             if (err) {
                 throw err;
-            } else {
-                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'categorias'", function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    //get the last deleted id
-                    console.log(`A row in "categorias" has been deleted on rowid: `, id);
-                });
             };
         });
     },
@@ -96,14 +80,6 @@ module.exports = {
         db.run("DELETE FROM productos WHERE id = ?", [id], function (err) {
             if (err) {
                 throw err;
-            } else {
-                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'productos'", function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    //get the last deleted id
-                    console.log(`A row in "productos" has been deleted on rowid: `, id);
-                });
             };
         });
     },
@@ -111,14 +87,6 @@ module.exports = {
         db.run("DELETE FROM imagenes WHERE id = ?", [id], function (err) {
             if (err) {
                 throw err;
-            } else {
-                db.run("UPDATE `main`.`sqlite_sequence` SET `seq` = '1' WHERE  `name` = 'imagenes'", function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    //get the last deleted id
-                    console.log(`A row in "imagenes" has been deleted on rowid: `, id);
-                });
             };
         });
     },

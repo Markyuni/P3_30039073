@@ -20,6 +20,7 @@
 		<div id="form">
 			<form action="/modificarImagen2" method="post">
 				<% data.forEach(function(row) { %>
+				<input name="id" type="hidden" value="<%= row.id %>">
 				<div id="form-url">
 		      		<label for="url">URL de la Imagen</label>
 					<input type="text" name="url" id="url" value="<%= row.url %>">

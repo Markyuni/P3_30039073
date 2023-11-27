@@ -80,6 +80,12 @@
 					<td>
 						<div id="buttons">
 							<a class="view_button" target="_blank" href="<%= row2.url %>">Visualizar</a>
+							<!--
+							<form action="/modificarImagen1" method="post">
+								<input name="id" type="hidden" value="<%= row2.id %>">
+								<input class="modify_button" type="submit" value="Modificar">
+							</form>
+							-->
 							<form action="/eliminarImagen" method="post">
 								<input name="id" type="hidden" value="<%= row2.id %>">
 								<input class="delete_button" type="submit" value="Eliminar">
