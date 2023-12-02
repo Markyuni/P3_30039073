@@ -1,11 +1,21 @@
 body {
-	background-color: #15181C;
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	color: #fff;
 	font-family: "Century Gothic", Century, sans-serif;
 	font-size: 18px;
 	line-height: 24px;
 	margin: 10px;
 	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
+}
+
+h3 {
+	text-align: center;
 }
 
 hr {
@@ -32,7 +42,7 @@ a:link, a:visited {
 }
 
 #filtering input {
-	width: 99%;
+	width: 98%;
 }
 
 #screen {
@@ -41,6 +51,7 @@ a:link, a:visited {
 	color: #142b4f;
 	display: block;
 	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .lista-productos {
@@ -64,6 +75,7 @@ a:link, a:visited {
 
 .product h2 {
 	margin: 10px 0;
+	line-height: 28px;
 }
 
 .product p {
@@ -83,4 +95,35 @@ a:link, a:visited {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+.select_button {
+	background-color: #265CD1;
+	background-image: url("/images/enter24.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	width: 100%;
+	height: 30px;
+}
+
+.select_button:hover {
+	background-color: #327DED;
+}
+
+.select_button:active {
+	background-color: #152D8C;
+	cursor: default;
+}
+
+@media screen and (max-width: 850px) {
+	#filtering {
+		grid-template-columns: 1fr;
+	}
+
+	.lista-productos {
+		align-content: center;
+	}
 }

@@ -22,6 +22,7 @@
 				<tr>
 					<th id="cat-nombre">Nombre</th>
 					<th id="cat-id">ID</th>
+					<th id="cat-acciones">Acciones</th>
 				</tr>	
 			</thead>
 			<tbody>
@@ -29,6 +30,22 @@
 				<tr>
 					<td><%= row.nombre %></td>
 					<td><%= row.id %></td>
+					<td>
+						<div id="buttons">
+							<!--
+							<form action="/categoria_listado/categoria_insertar/<%= row.id %>" method="get">
+								<input class="insert_button" type="submit" value="">
+							</form>
+							-->
+							<form action="/categoria_listado/categoria_modificar/<%= row.id %>" method="get">
+								<input class="modify_button" type="submit" value="">
+							</form>
+							<form action="/eliminarCategoria" method="post">
+								<input name="id" type="hidden" value="<%= row.id %>">
+								<input class="delete_button" type="submit" value="">
+							</form>
+						</div>
+					</td>
 				</tr>
 				<% }); %>
 			</tbody>

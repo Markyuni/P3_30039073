@@ -16,18 +16,22 @@
 	<div id="screen">
 		<h1 style="text-align: center; font-weight: bold;">Agregar Imagenes</h1>
 		<hr>
-		<div id="form">
 			<form action="/agregarImagen" method="post">
-				<div id="form-url">
-		      		<label for="url">URL de la Imagen</label>
-					<input type="text" name="url" placeholder="URL" id="url">
-		    	</div>
-		    	<div id="form-producto_id">
-		    		<label for="producto_id">ID del Producto</label>
-		    		<input type="number" min="1" name="producto_id" placeholder="ID" id="producto_id">
-		    	</div>
-		    	<div id="form-destacado">
+				<div id="form">
+					<div id="form-url">
+			      		<label for="url">URL de la Imagen</label>
+			      		<br>
+						<input type="text" name="url" placeholder="URL" id="url">
+			    	</div>
+			    	<div id="form-producto_id">
+			    		<label for="producto_id">ID del Producto</label>
+			    		<br>
+			    		<input type="number" min="1" name="producto_id" placeholder="ID" id="producto_id">
+			    	</div>
+			    </div>
+		    	<div class="last-input" id="form-destacado">
 		    		<label for="destacado">Destacado (0-1)</label>
+		    		<br>
 		    		<input type="number" max="1" min="0" name="destacado" placeholder="Destacado" id="destacado">
 		    	</div>
 		    	<br>
@@ -35,7 +39,6 @@
 					<button type="submit">Enviar</button>
 				</div>
 			</form>
-		</div>
 		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
 	</div>
 </body>

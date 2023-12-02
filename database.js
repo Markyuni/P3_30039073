@@ -42,7 +42,16 @@ module.exports = {
             console.log(`A row in "categorias" has been inserted with rowid ${this.lastID}`);
         });
     },
-    updateProducto: function (nombre, color, talla, codigo, precio, descripcion, categoria_id, id) {
+    updateProducto1: function (prodID, callback) {
+        db.all("SELECT * FROM productos WHERE id = ?", [prodID], function (err, rows) {
+            if (err) {
+                throw err;
+            }
+
+            callback(rows);
+        });
+    },
+    updateProducto2: function (nombre, color, talla, codigo, precio, descripcion, categoria_id, id) {
         db.run("UPDATE productos SET (nombre, color, talla, codigo, precio, descripcion, categoria_id) = (?, ?, ?, ?, ?, ?, ?) WHERE id = ?", [nombre, color, talla, codigo, precio, descripcion, categoria_id, id], function (err) {
             if (err) {
                 return console.log(err.message);
@@ -51,7 +60,16 @@ module.exports = {
             console.log(`A row in "productos" has been updated on rowid: `, id);
         });
     },
-    updateCategoria: function (nombre, id) {
+    updateCategoria1: function (catID, callback) {
+        db.all("SELECT * FROM categorias WHERE id = ?", [catID], function (err, rows) {
+            if (err) {
+                throw err;
+            }
+
+            callback(rows);
+        });
+    },
+    updateCategoria2: function (nombre, id) {
         db.run("UPDATE categorias SET nombre = ? WHERE id = ?", [nombre, id], function (err) {
             if (err) {
                 return console.log(err.message);
@@ -60,13 +78,23 @@ module.exports = {
             console.log(`A row in "categorias" has been updated on rowid: `, id);
         });
     },
-    updateImagen1: function (id) {
-        db.all("SELECT * FROM imagenes WHERE id = ?", [id], function (err) {
+    updateImagen1: function (imgID, callback) {
+        db.all("SELECT * FROM imagenes WHERE id = ?", [imgID], function (err, rows) {
             if (err) {
                 throw err;
             }
 
             callback(rows);
+        });
+    },
+    updateImagen2: function (url, producto_id, destacado, id) {
+        db.run("UPDATE imagenes SET (url, producto_id, destacado) = (?, ?, ?) WHERE id = ?", [url, producto_id, destacado, id], function (err) {
+            if (err) {
+                throw err;
+            }
+
+            //get the last updated id
+            console.log(`A row in "imagenes" has been updated on rowid: `, id);
         });
     },
     deleteCategoria: function (id) {
@@ -118,6 +146,33 @@ module.exports = {
                 throw err;
             } else {
                 db.all("SELECT url, producto_id FROM imagenes WHERE destacado = 1", [], (err, info_img) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    // Crear un nuevo arreglo que combina info_prod e info_img
+                    const combined = info_prod.map(prod => {
+                        // Encontrar la imagen correspondiente para este producto
+                        const img = info_img.find(i => i.producto_id === prod.id);
+
+                        // Devolver un nuevo objeto que combina la información del producto e imagen
+                        return {
+                            ...prod,
+                            img: img ? img.url : null
+                        };
+                    });
+
+                    callback(combined);
+                });
+            };
+        });
+    },
+    selectVenta: function (prodID, callback) {
+        db.all("SELECT * FROM productos WHERE id = ?", [prodID], (err, info_prod) => {
+            if (err) {
+                throw err;
+            } else {
+                db.all("SELECT * FROM imagenes WHERE producto_id = ?", [prodID], (err, info_img) => {
                     if (err) {
                         throw err;
                     }

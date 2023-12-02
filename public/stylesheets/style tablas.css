@@ -1,11 +1,17 @@
 body {
-	background-color: #15181C;
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	color: #fff;
 	font-family: "Century Gothic", Century, sans-serif;
 	font-size: 18px;
 	line-height: 24px;
 	margin: 10px;
 	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
 }
 
 hr {
@@ -52,20 +58,7 @@ a:link, a:visited {
 	color: #142b4f;
 	display: block;
 	padding: 30px;
-}
-
-#buttons {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	flex-wrap: wrap;
-}
-
-#buttons a {
-	color: white;
-	margin: 0px;
-	padding: 9px 0px;
-	font-weight: normal;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 #cat-id {
@@ -73,7 +66,7 @@ a:link, a:visited {
 }
 
 #prod-nombre {
-	width: 20%;
+	width: 10%;
 }
 
 #prod-color {
@@ -85,7 +78,7 @@ a:link, a:visited {
 }
 
 #prod-codigo {
-	width: 15%;
+	width: 10%;
 }
 
 #prod-precio {
@@ -104,42 +97,71 @@ a:link, a:visited {
 	width: 15%;
 }
 
-#prod-acciones, #img-acciones {
+#prod-acciones, #img-acciones, #cat-acciones {
 	width: 10%;
 }
 
-.view_button {
-	background-color: green;
-	border: none;
-	display: inline-block;
-	font-family: "Malgun Gothic";
-	padding: 11px;
-	width: 100%;
-	height: 100%;
+#buttons {
+	display: grid;
+	grid-template-rows: 1fr;
+	gap: 10px;
 }
 
-.delete_button {
-	background-color: red;
+#buttons a {
+	margin: 0px auto;
+}
+
+.view_button, .delete_button, .modify_button {
+	background-repeat: no-repeat;
+	background-position: center;
 	border: none;
-	color: white;
+	border-radius: 2px;
 	cursor: pointer;
-	display: inline-block;
-	font-family: "Malgun Gothic";
-	font-size: 14px;
-	padding: 12px;
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 30px;
+}
+
+.view_button {
+	background-image: url("/images/view25.png");
+	background-color: #7229D9;
+}
+
+.view_button:hover {
+	background-color: #9441F2;
+}
+
+.view_button:active {
+	background-color: #471CA3;
 }
 
 .modify_button {
-	background-color: deepskyblue;
-	border: none;
-	color: white;
-	cursor: pointer;
-	display: inline-block;
-	font-family: "Malgun Gothic";
-	font-size: 14px;
-	padding: 12px;
-	width: 100%;
-	height: 100%;
+	background-image: url("/images/edit24.png");
+	background-color: #40B526;
+}
+
+.modify_button:hover {
+	background-color: #5BEB3B;
+}
+
+.modify_button:active {
+	background-color: #0f6E11;
+}
+
+.delete_button {
+	background-color: #D10F15;
+	background-image: url("/images/delete24.png");
+}
+
+.delete_button:hover {
+	background-color: #FF3339;
+}
+
+.delete_button:active {
+	background-color: #750E23;
+}
+
+@media screen and (max-width: 1250px) {
+	th {
+		font-size: 14px
+	}
 }

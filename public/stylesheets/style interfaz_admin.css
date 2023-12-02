@@ -1,11 +1,17 @@
 body {
-	background-color: #15181C;
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	color: #fff;
 	font-family: "Century Gothic", Century, sans-serif;
 	font-size: 18px;
 	line-height: 24px;
 	margin: 10px;
 	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
 }
 
 hr {
@@ -30,4 +36,5 @@ a:link, a:visited {
 	color: #142b4f;
 	display: block;
 	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }

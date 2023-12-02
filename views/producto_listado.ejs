@@ -45,10 +45,15 @@
 					<td><%= row.descripcion %></td>
 					<td><%= row.categoria_id %></td>
 					<td>
-						<form action="/eliminarProducto" method="post">
-							<input name="id" type="hidden" value="<%= row.id %>">
-							<input class="delete_button" type="submit" value="Eliminar">
-						</form>
+						<div id="buttons">
+							<form action="/producto_listado/producto_modificar/<%= row.id %>" method="get">
+								<input class="modify_button" type="submit" value="">
+							</form>
+							<form action="/eliminarProducto" method="post">
+								<input name="id" type="hidden" value="<%= row.id %>">
+								<input class="delete_button" type="submit" value="">
+							</form>
+						</div>
 					</td>
 				</tr>
 				<% }); %>
@@ -79,16 +84,13 @@
 					<td><%= row2.producto_id %></td>
 					<td>
 						<div id="buttons">
-							<a class="view_button" target="_blank" href="<%= row2.url %>">Visualizar</a>
-							<!--
-							<form action="/modificarImagen1" method="post">
-								<input name="id" type="hidden" value="<%= row2.id %>">
-								<input class="modify_button" type="submit" value="Modificar">
+							<a class="view_button" target="_blank" href="<%= row2.url %>"></a>
+							<form action="/producto_listado/imagen_modificar/<%= row2.id %>" method="get">
+								<input class="modify_button" type="submit" value="">
 							</form>
-							-->
 							<form action="/eliminarImagen" method="post">
 								<input name="id" type="hidden" value="<%= row2.id %>">
-								<input class="delete_button" type="submit" value="Eliminar">
+								<input class="delete_button" type="submit" value="">
 							</form>
 						</div>
 					</td>
