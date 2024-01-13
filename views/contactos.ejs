@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RPYBK9NS3S"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-RPYBK9NS3S');
+	</script>
+	<title>
+		Registro de Contactos
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Propiedades de Open Graph Protocol -->
+	<meta property="og:title" content='Registro de contactos'>
+	<meta property="og:type" content='Contactos'>
+	<meta property="og:url" content='https://programacion-ii-evaluacion-4.onrender.com/contactos'>
+	<meta property="og:site_name" content='irrelevante'>
+	<meta property="og:description" content='Aqui se encuentran los contactos del sitio.'>
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/contactos style.css">
+
+	<!-- Google reCAPTCHA lado del cliente -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+	<p>
+		<b>Curriculum Vitae:</b> <a target="_blank" href="/">Entrar</a>
+		<br>
+		<b>Página de Ingreso:</b> <a target="_blank" href="/login">Entrar</a>
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<th id="header-id">ID</th>
+				<th>Nombre</th>
+				<th>Email</th>
+				<th>Comentario</th>
+				<th>Fecha</th>
+				<th>IP</th>
+				<th id="header-pais">País</th>
+			</tr>	
+		</thead>
+		<!-- La idea es meter los registros de la DB aqui -->
+		<tbody>
+			<% data.forEach(function(row) { %>
+			<tr>
+				<td><%= row.id  %></td>
+				<td><%= row.name %></td>
+				<td><%= row.email %></td>
+				<td><%= row.comment %></td>
+				<td><%= row.date %></td>
+				<td><%= row.myIP %></td>
+				<td><%= row.pais %></td>
+		<!-- Los demas seran agregados pronto -->
+			</tr>
+			<% }); %>
+		</tbody>
+	</table>
+</body>
+</html>

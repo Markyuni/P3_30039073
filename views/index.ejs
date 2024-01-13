@@ -2,29 +2,156 @@
 <html lang="es">
 
 <head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RPYBK9NS3S"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-RPYBK9NS3S');
+	</script>
+	<title>
+		Curriculum Vitae
+	</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>
-		Interfaz Administrativa
-	</title>
-	
-	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style interfaz.css">
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
-	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Lentes de Sol para Toda la Familia</h1>
-		<h2 style="text-align: center; font-weight: normal;">Interfaz Administrativa</h2>
-		<hr>
-		<p><a target="_self" href="/categoria_listado">Listado de Categorías</a></p>
-		<p><a target="_self" href="/producto_listado">Listado de Productos</a></p>
-		<p><a target="_self" href="/categoria_insertar">Insertar Categorías</a></p>
-		<p><a target="_self" href="/producto_insertar">Insertar Productos</a></p>
-		<p><a target="_self" href="/imagen_agregar">Agregar Imágenes</a></p>
-		<p><a target="_self" href="/categoria_modificar">Modificar Categorías</a></p>
-		<p><a target="_self" href="/producto_modificar">Modificar Productos</a></p>
+	<div class="split izquierda">
+		<img class="center" src="/images/amari.png" alt="" width="auto">
+		<div id="informacion-personal">
+			<p>
+				<b style="font-size: 28px">INFORMACIÓN PERSONAL</b>
+			</p>
+			<ul>
+				<li>19 años</li>
+				<li>Nacionalidad Venezolana</li>
+				<li>12 de Agosto de 2003</li>
+			</ul>
+		</div>
+		<div id="sitios-web">
+			<p>
+				<b style="font-size: 28px">SITIOS WEB</b>
+			</p>
+			<table>
+				<tr>
+					<td><a href="https://twitter.com/markyuni" target="_blank">TWITTER</a></td>
+					<td><a href="https://github.com/Markyuni" target="_blank">GITHUB</td>
+				</tr>
+				<tr>
+					<td><a href="https://markyuni.newgrounds.com/" target="_blank">NEWGROUNDS</a></td>
+					<td><a href="https://markyuni.tumblr.com/" target="_blank">TUMBLR</a></td>
+				</tr>				
+			</table>
+		</div>
+		<div id="habilidades">
+			<p>
+				<b style="font-size: 28px">HABILIDADES</b>
+			</p>
+			<ul>
+				<li>Pro activo</li>
+				<li>Capacidad de trabajo en equipo</li>
+				<li>Mente abierta y dispuesta a cambios</li>
+			</ul>
+		</div>
+		<div id="idiomas">
+			<p>
+				<b style="font-size: 28px">IDIOMAS</b>
+			</p>
+			<p class="justify">
+				<b>INGLES</b>
+				<br>
+				AVANZADO C2
+			</p>
+		</div>
 	</div>
+	<div class="split derecha">
+		<div id="nombre">
+		<p class="center">
+			<b>JESÚS RAMÍREZ</b><br>
+			ESTUDIANTE
+		</p>
+		</div>
+		<hr style="width: 90%;">
+		<div id="perfil-personal">
+			<p>
+				<b style="font-size: 28px">PERFIL PERSONAL</b>
+			</p>
+			<p class="justify">
+				Estudiante de 7° semestre en Ingeniería de Sistemas con conocimientos básicos en programación. Con disposición de seguir aprendiendo y mejorando.
+			</p>
+		</div>
+		<div id="formacion-academica">
+			<p>
+				<b style="font-size: 28px">FORMACIÓN ACADÉMICA</b>
+			</p>
+			<p class="justify">
+				<b>BACHILLER EN INGENIERIA EN SISTEMAS (ESTUDIANTE)</b>
+				<br>
+				Universidad Nacional Experimental "Rómulo Gallegos"
+				<br>
+				(2020 - actualmente)
+			</p>
+		</div>
+		<div id="experiencia-laboral">
+			<p>
+				<b style="font-size: 28px">EXPERIENCIA LABORAL</b>
+			</p>
+			<p class="justify">
+				<b>ARTISTA FREELANCER</b>
+				<br>
+				(2022 - actualmente)
+			</p>
+			<p class="justify">
+				Uno de mis hobbies desde hace más de una década, pero comencé a permitir comisiones de dibujo por dinero en la segunda mitad de 2022.
+			</p>
+		</div>
+	</div>
+	<hr style="width: 100%">
+	<div id="form">
+		<form action="/" method="post">
+			<div class="form-izquierda">
+				<div id="form-correo">
+	          		<label for="email">Email</label>
+	    			<input type="email" name="email" id="email">
+	        	</div>
+	        	<div id="form-nombre">
+	            	<label for="name">Nombre</label>
+	            	<input type="text" name="name" id="name">
+	        	</div>
+			</div>
+			<div class="form-derecha">
+		        <div id="form-comentario">
+		            <label for="comment">Comentario</label>
+		            <textarea name="comment" id="comment"></textarea>
+		        </div>
+		        <!-- En caso de que encuentre algo que hacer
+
+				<div id="form-password">
+					<label for="pwd">Contraseña</label>
+					<input type="password" id="pwd" name="pwd">				
+				</div>
+
+				-->
+	    	</div>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<div style="text-align: center;">
+	    		<div class="g-recaptcha" data-sitekey="6LeMHU0mAAAAAAb2q9ep7rKxwer-ZeCUy6pqTNGE" style="display: inline-block;">
+				</div>
+			</div>
+	    	<br>
+			<button type="submit">Enviar</button>
+	</div>
+    </form>
 </body>
 
 </html>

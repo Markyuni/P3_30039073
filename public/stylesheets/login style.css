@@ -1,0 +1,64 @@
+body {
+	background-color: #15181c;
+	color: #fff;
+	font-family: "Century Gothic", Century, sans-serif;
+	font-size: 22px;
+	line-height: 24px;
+	margin: 0px;
+	padding: 50px;
+}
+
+button {
+	background-color: #142b4f;
+	border: none;
+	border-radius: 10px;
+	color: #E8E8ED;
+	font: 32px Century Gothic;
+	font-weight: bold;
+	margin: 40px 40% 0px;
+	text-align: center;
+	padding: 12px;
+}
+
+a:link, a:visited {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: inline-block;
+	font-weight: bold;
+	min-width: 70%;
+	padding: 20px 30px;
+	text-decoration: none;
+}
+
+input, textarea {
+	background-color: #15181c;
+	border: 1px #15181c solid;
+	color: white;
+	float: right;
+	font: 14px Century Gothic;
+	min-width: 75%;
+}
+
+textarea {
+	resize: none;
+  overflow: hidden;
+  max-height: 16px;
+}
+
+h2 {
+	text-align: center;
+}
+
+hr {
+	margin: 5% 0px;	
+}
+
+#inicio {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	font-weight: bold;
+	margin: 6% 25%;
+	padding: 25px;}

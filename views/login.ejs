@@ -2,38 +2,78 @@
 <html lang="es">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RPYBK9NS3S"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-RPYBK9NS3S');
+	</script>
 	<title>
 		Entrada al Sitio
 	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
+	<!-- Propiedades de Open Graph Protocol -->
+	<meta property="og:title" content='Ingreso al sitio web'>
+	<meta property="og:type" content='Ingreso'>
+	<meta property="og:url" content='https://programacion-ii-evaluacion-4.onrender.com'>
+	<meta property="og:site_name" content='irrelevante'>
+	<meta property="og:description" content='Aqui es donde se ingresa al sitio.'>
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login style.css">
+
+	<!-- Google reCAPTCHA lado del cliente -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
-	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Inicio</h1>
+	<div id="inicio">
+		<h2>
+			Inicio
+		</h2>
+		<p>Curriculum Vitae: <a target="_blank" href="/">Entrar</a></p>
 		<hr>
-		<p style="margin: 0px;">Ingrese el Usuario y Contraseña de Administrador.</a></p>
-		<br>
 		<form action="/login" method="post">
-			<div id="inicio-admin">
-				<label for="admin">Usuario</label>
-				<input type="text" name="admin" id="admin">
+			<div id="inicio-usuario">
+				<label for="name">Usuario</label>
+				<input type="text" name="name" id="name">
+			</div>
+			<div id="inicio-correo">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
 			</div>
 			<div id="inicio-password">
 				<label for="pwd">Contraseña</label>
 				<input type="password" id="pwd" name="pwd">
 			</div>
 			<br>
-			<div id="form-submit">
-				<button type="submit">Enviar</button>
+		  	<div style="text-align: center;">
+	    		<div class="g-recaptcha" data-sitekey="6LeMHU0mAAAAAAb2q9ep7rKxwer-ZeCUy6pqTNGE" style="display: inline-block;">
+				</div>
 			</div>
+			<!-- Google OAuth lado del cliente -->
+			<script src="https://accounts.google.com/gsi/client" async defer></script>
+			<div
+				id="g_id_onload"
+				data-client_id="285900037668-n8el30v2p8oc0bkin85je3gn0e32fpvl.apps.googleusercontent.com"
+				data-login_uri="https://programacion-ii-evaluacion-4.onrender.com/contactos"
+				data-auto_prompt="false"
+			></div>
+			<br>
+			<div
+				class="g_id_signin"
+				data-type="standard"
+				data-size="large"
+				data-theme="outline"
+				data-text="sign_in_with"
+				data-shape="rectangular"
+			></div>
+			<button type="submit">Enviar</button>
 		</form>
-		<br>
-		<p style="text-align: center;">¿No es un administrador? Entonces entre a la interfaz pública:<a target="_self" href="/index_public">Ingresar Aquí</a></p>
 	</div>
 </body>
 </html>

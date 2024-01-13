@@ -1,0 +1,146 @@
+body {
+	background-color: #15181c;
+	color: #fff;
+	font-family: "Century Gothic", Century, sans-serif;
+	font-size: 22px;
+	line-height: 24px;
+	margin: 0px;
+	padding: 50px;
+}
+
+button {
+	background-color: #142b4f;
+	border: none;
+	border-radius: 10px;
+	color: #E8E8ED;
+	font: 32px Century Gothic;
+	font-weight: bold;
+	margin: 30px 45% 0px;
+	text-align: center;
+	padding: 12px;
+}
+
+a:link, a:visited {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: inline-block;
+	font-weight: bold;
+	min-width: 70%;
+	padding: 20px 30px;
+	text-decoration: none;
+}
+
+img {
+	border-top-right-radius: 25%;
+}
+
+input, textarea {
+	background-color: #15181c;
+	border: 1px #15181c solid;
+	color: white;
+	float: right;
+	font: 14px Century Gothic;
+	min-width: 75%;
+}
+
+textarea {
+	resize: none;
+    overflow: hidden;
+    max-height: 16px;
+}
+
+.split {
+  height: 100%;
+  width: 47%;
+  position: static;
+}
+
+.izquierda {
+	float: left;
+}
+
+.derecha {
+	background-color: #E8E8ED;
+	border: solid 0px;
+	border-radius: 10px;
+	color: #142b4f;
+	float: right;
+	font-size: 150%;
+	margin-bottom: 50px;
+	padding: 25px 0px;
+}
+
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.justify {
+	font-size: 22px;
+	margin-left: 5%;
+	text-align: justify;
+}
+
+.form-izquierda {
+	float: left;
+	width: 48%;
+}
+
+.form-derecha {
+	float: right;
+	width: 48%;
+}
+
+#informacion-personal p, #sitios-web p, #habilidades p {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#sitios-web table {
+	margin: 0px;
+	text-align: center;
+	width: 100%;
+}
+
+#sitios-web td {
+	width: 50%;
+	padding-top: 10px;
+}
+
+#nombre {
+	font-size: 120%;
+	line-height: 125%;
+	padding-top: 7%;
+	padding-bottom: 7%;
+}
+
+#informacion-personal, #sitios-web, #habilidades, #idiomas, #perfil-personal, #formacion-academica, #experiencia-laboral {
+	padding: 0% 10%;
+}
+
+#informacion-personal p, #sitios-web p, #habilidades p, #idiomas p, #perfil-personal p, #formacion-academica p, #experiencia-laboral p {
+	max-width: 90%;
+}
+
+#form {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	font-weight: bold;
+	margin-top: 50px;
+	padding: 30px 50px;
+}
+
+#inicio {
+	background-color: #E8E8ED;
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	font-weight: bold;
+	margin-top: 50px;
+	padding: 30px 50px;
+}
