@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Modificación de Imagenes
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Modificar Imagenes</h1>
+		<hr>
+		<p>Modifique la imagen como usted desee.</p>
+		<form action="/modificarImagen" method="post">
+			<% data.forEach(function(row) { %>
+			<div id="form">
+				<input name="id" type="hidden" value="<%= row.id %>">
+				<div id="form-url">
+		      		<label for="url">URL de la Imagen</label>
+					<input type="text" name="url" id="url" value="<%= row.url %>">
+		    	</div>
+				<div id="form-producto_id">
+		      		<label for="producto_id">ID del Producto</label>
+					<input type="text" name="producto_id" id="producto_id" value="<%= row.producto_id %>">
+		    	</div>
+		    </div>
+	    	<div class="last-input" id="form-destacado">
+	    		<label for="destacado">Destacado (0-1)</label>
+	    		<input type="number" min="0" max="1" name="destacado" id="destacado" value="<%= row.destacado %>">
+	    	</div>
+	    	<% }); %>
+		    <br>
+		    <div id="form-submit">
+				<button type="submit">Enviar</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interfaz Pública</title>
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/stylesheets/style interfaz_public.css"
+    />
+  </head>
+
+  <body>
+    <div id="screen">
+      <h1 style="text-align: center; font-weight: bold">
+        Lentes de Sol para Toda la Familia
+      </h1>
+      <h2 style="text-align: center; font-weight: normal">Interfaz Pública</h2>
+      <hr/>
+      <h3>Filtrar productos</h3>
+
+      <div id="filtering">
+        <!-- Se colocan en divs para que el display: grid funcione correctamente -->
+        <div id="filter-nombre">
+            <label for="nombre">Nombre</label>
+            <br>
+            <input type="text" name="nombre" placeholder="Filtrar por nombre..." id="nombre" onkeyup="filtro()"/>
+        </div>
+        <div id="filter-desc">
+            <label for="descripcion">Descripción</label>
+            <br>
+            <input type="text" name="descripcion" placeholder="Filtrar por descripción..." id="descripcion" onkeyup="filtro()"/>
+        </div>
+        <div id="filter-talla">
+            <label for="talla">Talla</label>
+            <br>
+            <input type="text" name="talla" placeholder="Filtrar por talla..." id="talla" onkeyup="filtro()"/>
+        </div>
+        <div id="filter-color">
+            <label for="color">Color</label>
+            <br>
+            <input type="text" name="color" placeholder="Filtrar por color..." id="color" onkeyup="filtro()"/>
+        </div>
+        <div id="filter-codigo">
+            <label for="codigo">Código</label>
+            <br>
+            <input type="text" name="codigo" placeholder="Filtrar por código..." id="codigo" onkeyup="filtro()"/>
+        </div>
+        <div id="filter-categoria-id">
+            <label for="categoria-id">ID de la Categoría</label>
+            <br>
+            <input type="text" name="categoria-id" placeholder="Filtrar por ID de la categoría..." id="categoria-id" onkeyup="filtro()"/>
+        </div>
+      </div>
+
+      <script>
+        function filtro() {
+          // Obtén el valor del input
+          let nombreFilter = document.getElementById('nombre').value.toLowerCase();
+          let descFilter = document.getElementById('descripcion').value.toLowerCase();
+          let tallaFilter = document.getElementById('talla').value.toLowerCase();
+          let colorFilter = document.getElementById('color').value.toLowerCase();
+          let codigoFilter = document.getElementById('codigo').value.toLowerCase();
+          let catIdFilter = document.getElementById('categoria-id').value.toLowerCase();
+
+          // Obtén todos los productos
+          let productos = document.getElementsByClassName("product");
+
+          console.log(productos);
+          // Itera sobre los productos
+          for (let i = 0; i < productos.length; i++) {
+            // Obtén el nombre del producto
+            let nombreProducto = productos[i].getElementsByClassName("product_nombre")[0].textContent.toLowerCase();
+            let descProducto = productos[i].getElementsByClassName("product_desc")[0].textContent.toLowerCase();
+            let tallaProducto = productos[i].getElementsByClassName("product_talla")[0].textContent.toLowerCase();
+            let colorProducto = productos[i].getElementsByClassName("product_color")[0].textContent.toLowerCase();
+            let codigoProducto = productos[i].getElementsByClassName("product_codigo")[0].textContent.toLowerCase();
+            let catIdProducto = productos[i].getElementsByClassName("product_categoria_id")[0].textContent.toLowerCase();
+
+            // Comprueba si el nombre del producto incluye el valor del filtro
+            if (!nombreProducto.includes(nombreFilter) || !descProducto.includes(descFilter) || !tallaProducto.includes(tallaFilter) || !colorProducto.includes(colorFilter) || !codigoProducto.includes(codigoFilter) || !catIdProducto.includes(catIdFilter)) {
+              // Si es así, muestra el producto
+              productos[i].style.display = "none";
+            } else {
+              // Si no, oculta el producto
+              productos[i].style.display = "";
+            }
+          }
+        };
+      </script>
+
+        <button class="list-button">Cambiar a modo lista</button>
+        <div class="lista-productos">
+            <% products.forEach(function(product) { %>
+
+            <div class="product">
+                <img src="<%= product.img %>" alt="<%= product.nombre %>" />
+                <h2 class="product_nombre"><%= product.nombre %></h2>
+                <p class="product_desc">"<i><%= product.descripcion %>.</i>"</p>
+                <br>
+                <p class="product_talla">Talla: <%= product.talla %></p>
+                <p class="product_color">Color: <%= product.color %></p>
+                <p class="product_codigo">Código: <%= product.codigo %></p>
+                <p class="product_categoria_id">Categoría: <%= product.categoria_id %></p>
+                <p class="product_precio">Precio: $<%= product.precio %></p>
+                <br>
+                <form action="/index_public/producto_venta/<%= product.id %>" method="get" target="_blank">
+                    <input class="select_button" type="submit" value="">
+                </form>
+            </div>
+
+            <% }); %>
+        </div>
+
+        <script>
+            document.querySelector(".list-button").addEventListener("click", function () {
+                var productList = document.querySelector(".lista-productos");
+                productList.classList.toggle("list-view");
+
+                this.textContent = productList.classList.contains("list-view")
+                    ? "Cambiar a modo cuadricula"
+                    : "Cambiar a modo lista";
+              });
+        </script>
+    </div>
+</body>
+
+</html>

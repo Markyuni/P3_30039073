@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Inserción de Categorías
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Insertar Categorías</h1>
+		<hr>
+		<p>Existen un total de cinco categorías para lentes de sol, en el rango de 0 a 4, las cuales denotan la transmisión de luz en estas.</p>
+		<p>Sin embargo, sientase libre de colocar la categoría que guste.</p>
+		
+		<form action="/insertarCategoria" method="post">
+			<div id="form-nombre">
+	      		<label for="nombre">Nombre de la Categoría</label>
+	      		<br>
+				<input type="text" name="nombre" placeholder="Nombre" id="nombre">
+	    	</div>
+	    	<br>
+	    	<div id="form-submit">
+				<button type="submit">Enviar</button>
+			</div>
+		</form>
+		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
+	</div>
+</body>
+</html>

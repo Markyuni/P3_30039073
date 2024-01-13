@@ -1,0 +1,167 @@
+body {
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	color: #fff;
+	font-family: "Century Gothic", Century, Calibri, sans-serif;
+	font-size: 18px;
+	line-height: 24px;
+	margin: 10px;
+	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
+}
+
+hr {
+	margin: 30px 0px;
+	color: #15181C;
+}
+
+table, th, td {
+	border: 2px solid #0D0D0D;
+	padding: 5px 0px;
+}
+
+table {
+	border-collapse: collapse;
+	text-align: center;
+	table-layout: fixed;
+	width: 100%;
+	word-break: break-word;
+}
+
+thead {
+	color: #142B4F;
+}
+
+tbody {
+	background-color: #15181C;
+	color: white;
+}
+
+td {
+	font-size: 14px;
+}
+
+a:link, a:visited {
+	color: #142b4f;
+	font-weight: bold;
+	margin: 20px;
+	text-decoration: none;
+}
+
+#screen {
+	background-color: rgba(232, 232, 237, 0.9);
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+#cat-id {
+	width: 10%;
+}
+
+#prod-nombre {
+	width: 10%;
+}
+
+#prod-color {
+	width: 10%;
+}
+
+#prod-talla {
+	width: 10%;
+}
+
+#prod-codigo {
+	width: 10%;
+}
+
+#prod-precio {
+	width: 10%;
+}
+
+#prod-categoria {
+	width: 10%;
+}
+
+#img-prod-id {
+	width: 15%;
+}
+
+#img-destacado {
+	width: 15%;
+}
+
+#prod-acciones, #img-acciones, #cat-acciones {
+	width: 10%;
+}
+
+#buttons {
+	display: grid;
+	grid-template-rows: 1fr;
+	gap: 10px;
+}
+
+#buttons a {
+	margin: 0px auto;
+}
+
+.view_button, .delete_button, .modify_button {
+	background-repeat: no-repeat;
+	background-position: center;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	width: 90%;
+	height: 30px;
+}
+
+.view_button {
+	background-image: url("/images/view25.png");
+	background-color: #7229D9;
+}
+
+.view_button:hover {
+	background-color: #9441F2;
+}
+
+.view_button:active {
+	background-color: #471CA3;
+}
+
+.modify_button {
+	background-image: url("/images/edit24.png");
+	background-color: #40B526;
+}
+
+.modify_button:hover {
+	background-color: #5BEB3B;
+}
+
+.modify_button:active {
+	background-color: #0f6E11;
+}
+
+.delete_button {
+	background-color: #D10F15;
+	background-image: url("/images/delete24.png");
+}
+
+.delete_button:hover {
+	background-color: #FF3339;
+}
+
+.delete_button:active {
+	background-color: #750E23;
+}
+
+@media screen and (max-width: 1250px) {
+	th {
+		font-size: 14px
+	}
+}

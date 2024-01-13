@@ -1,0 +1,129 @@
+body {
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	color: #fff;
+	font-family: "Century Gothic", Century, Calibri, sans-serif;
+	font-size: 18px;
+	line-height: 24px;
+	margin: 10px;
+	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
+}
+
+h3 {
+	text-align: center;
+}
+
+hr {
+	margin: 30px 0px;
+	color: #15181C;
+}
+
+a:link, a:visited {
+	background-color: #15181C;
+	border-radius: 10px;
+	color: #E8E8ED;
+	display: block;
+	font-weight: bold;
+	padding: 12px;
+	text-align: center;
+	text-decoration: none;
+}
+
+#filtering {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 20px;
+	padding: 20px;
+}
+
+#filtering input {
+	width: 98%;
+}
+
+#screen {
+	background-color: rgba(232, 232, 237, 0.9);
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.lista-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+	border: 1px solid #ccc;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+	width: 100%;
+	height: auto;
+	max-width: 200px;
+}
+
+.product h2 {
+	margin: 10px 0;
+	line-height: 28px;
+}
+
+.product p {
+	margin: 0;
+}
+
+.lista-productos.list-view {
+	grid-template-columns: 1fr;
+}
+
+.list-button {
+	display: block;
+	margin: 20px auto;
+	padding: 10px 20px;
+	background-color: #007BFF;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.select_button {
+	background-color: #265CD1;
+	background-image: url("/images/enter24.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	width: 100%;
+	height: 30px;
+}
+
+.select_button:hover {
+	background-color: #327DED;
+}
+
+.select_button:active {
+	background-color: #152D8C;
+	cursor: default;
+}
+
+@media screen and (max-width: 850px) {
+	#filtering {
+		grid-template-columns: 1fr;
+	}
+
+	.lista-productos {
+		align-content: center;
+	}
+}

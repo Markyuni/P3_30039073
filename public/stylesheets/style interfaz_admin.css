@@ -1,0 +1,40 @@
+body {
+	background-image: url(/images/wallpaper.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	color: #fff;
+	font-family: "Century Gothic", Century, Calibri, sans-serif;
+	font-size: 18px;
+	line-height: 24px;
+	margin: 10px;
+	padding: 5% 10%;
+}
+
+h1 {
+	line-height: 100%;
+}
+
+hr {
+	margin: 30px 0px;
+	color: #15181C;
+}
+
+a:link, a:visited {
+	background-color: #15181C;
+	border-radius: 10px;
+	color: #E8E8ED;
+	display: block;
+	font-weight: bold;
+	padding: 12px;
+	text-align: center;
+	text-decoration: none;
+}
+
+#screen {
+	background-color: rgba(232, 232, 237, 0.9);
+	border-radius: 10px;
+	color: #142b4f;
+	display: block;
+	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}

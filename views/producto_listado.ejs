@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Listado de Productos
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style tablas.css">
+
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Listado de Productos</h1>
+		<hr>
+		<h2 style="text-align: center;">Productos</h2>
+		<% if (data.length > 0) { %>
+		<table>
+			<thead>
+				<tr>
+				<!--	<th>ID</th>	-->
+					<th id="prod-nombre">Nombre</th>
+					<th id="prod-color">Color</th>
+					<th id="prod-talla">Talla</th>
+					<th id="prod-codigo">Código</th>
+					<th id="prod-precio">Precio</th>
+					<th id="prod-descripcion">Descripción</th>
+					<th id="prod-categoria">Categoría</th>
+					<th id="prod-acciones">Acciones</th>
+				</tr>	
+			</thead>
+			<tbody>
+				<% data.forEach(function(row) { %>
+				<tr>
+				<!--	<td><%= row.id %></td>	-->
+					<td><%= row.nombre %></td>
+					<td><%= row.color %></td>
+					<td><%= row.talla %></td>
+					<td><%= row.codigo %></td>
+					<td><%= row.precio %></td>
+					<td><%= row.descripcion %></td>
+					<td><%= row.categoria_id %></td>
+					<td>
+						<div id="buttons">
+							<form action="/producto_listado/producto_modificar/<%= row.id %>" method="get">
+								<input class="modify_button" type="submit" value="">
+							</form>
+							<form action="/eliminarProducto" method="post">
+								<input name="id" type="hidden" value="<%= row.id %>">
+								<input class="delete_button" type="submit" value="">
+							</form>
+						</div>
+					</td>
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>
+		<% } else { %>
+		<p style="text-align: center; font-weight: normal;">No existen productos actualmente.</p>
+		<br>
+		<% }; %>
+		<h2 style="text-align: center;">Imágenes</h2>
+		<% if (data.length > 0) { %>
+			<table>
+			<thead>
+				<tr>
+				<!--	<th>ID</th>	-->
+					<th>URL de Imágen</th>
+					<th id="img-destacado">Destacado</th>
+					<th id="img-prod-id">ID del Producto</th>
+					<th id="img-acciones">Acciones</th>
+				</tr>	
+			</thead>
+			<tbody>
+				<% data2.forEach(function(row2) { %>
+				<tr>
+				<!--	<td><%= row2.id %></td>	-->
+					<td><%= row2.url %></td>
+					<td><%= row2.destacado %></td>
+					<td><%= row2.producto_id %></td>
+					<td>
+						<div id="buttons">
+							<a class="view_button" target="_blank" href="<%= row2.url %>"></a>
+							<form action="/producto_listado/imagen_modificar/<%= row2.id %>" method="get">
+								<input class="modify_button" type="submit" value="">
+							</form>
+							<form action="/eliminarImagen" method="post">
+								<input name="id" type="hidden" value="<%= row2.id %>">
+								<input class="delete_button" type="submit" value="">
+							</form>
+						</div>
+					</td>
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>
+		<% } else { %>
+		<p style="text-align: center; font-weight: normal;">No hay imágenes actualmente.</p>
+		<% }; %>
+		<br>
+		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
+	</div>
+</body>
+</html>

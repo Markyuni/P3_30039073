@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Inserción de Productos
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Insertar Productos</h1>
+		<hr>
+		<p>Es recomendable que todos los datos del formulario sean llenados, por favor.</p>
+			<form action="/insertarProducto" method="post">
+				<div id="form">
+					<div id="form-nombre">
+			      		<label for="nombre">Nombre del Producto</label>
+			      		<br>
+						<input type="text" name="nombre" placeholder="Nombre" id="nombre">
+			    	</div>
+			    	<div id="form-color">
+			        	<label for="color">Color</label>
+			        	<br>
+			        	<input type="text" name="color" placeholder="Color" id="color">
+			    	</div>
+			    	<div id="form-talla">
+			        	<label for="talla">Talla</label>
+			        	<br>
+			        	<input type="text" name="talla" placeholder="Talla" id="talla">
+			    	</div>
+			    	<div id="form-codigo">
+			        	<label for="codigo">Código</label>
+			        	<br>
+			        	<input type="text" name="codigo" placeholder="Código" id="codigo">
+			    	</div>
+			    	<div id="form-precio">
+			        	<label for="precio">Precio</label>
+			        	<br>
+			        	<input type="text" name="precio" placeholder="Precio" id="precio">
+			    	</div>
+			      	<div id="form-descripcion">
+			        	<label for="descripcion">Descripción</label>
+			        	<br>
+			        	<input type="textarea" name="descripcion" placeholder="Descripción" id="descripcion">
+			    	</div>
+			    </div>
+		    	<div class="last-input" id="form-categoria">
+					<label for="categoria">Categoría del Producto</label>
+					<br>
+					<input type="number" min="1" name="categoria" placeholder="Categoría" id="categoria">
+		    	</div>
+				<br>
+				<div id="form-submit">
+					<button type="submit">Enviar</button>
+				</div>
+			</form>
+		<p style="text-align: center;"><a target="_self" href="/index_admin">Volver a la Interfaz Principal</a></p>
+	</div>
+</body>
+</html>

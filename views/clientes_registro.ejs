@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Registro de Cliente
+	</title>
+
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style datos.css">
+
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+	<div id="screen">
+		<h1 style="text-align: center; font-weight: bold;">Registro del Cliente</h1>
+		<hr>
+		<p style="margin: 0px;">Ingrese sus Datos a Registrar.</a></p>
+		<br>
+		<form action="/registro" method="post">
+			<div id="email">
+				<label for="email">Email</label>
+				<input type="text" name="email" id="email">
+			</div>
+			<div id="password">
+				<label for="pwd">Contraseña</label>
+				<input type="password" id="pwd" name="pwd">
+			</div>
+			<br>
+			<div style="text-align: center;">
+	    		<div class="g-recaptcha" data-sitekey="6LfrE00pAAAAAAnfRJNS-gHmUzE_atDLuyPc_5X4" style="display: inline-block;">
+				</div>
+			</div>
+			<br>
+			<div id="form-submit">
+				<button type="submit">Registrarte</button>
+			</div>
+		</form>
+		<br>
+		<p style="text-align: center;">¿Ya estas registrado?<a target="_self" href="/index_public">Inicia tu sesión</a></p>
+	</div>
+</body>
+</html>
