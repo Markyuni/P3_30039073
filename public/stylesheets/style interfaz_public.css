@@ -3,7 +3,7 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	color: #fff;
-	font-family: "Century Gothic", Century, sans-serif;
+	font-family: "Century Gothic", Century, Calibri, sans-serif;
 	font-size: 18px;
 	line-height: 24px;
 	margin: 10px;
@@ -46,7 +46,7 @@ a:link, a:visited {
 }
 
 #screen {
-	background-color: #E8E8ED;
+	background-color: rgba(232, 232, 237, 0.9);
 	border-radius: 10px;
 	color: #142b4f;
 	display: block;

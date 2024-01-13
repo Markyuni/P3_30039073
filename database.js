@@ -10,6 +10,9 @@ let db = new sqlite3.Database('./lentesSol.db', (err) => {
     db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio FLOAT NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE)");
     db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE)");
 
+    db.run("CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL, contraseña TEXT NOT NULL)");
+    db.run("CREATE TABLE IF NOT EXISTS clientesDatos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER NOT NULL, producto_id INTEGER NOT NULL, cantidad INTEGER NOT NULL, total_pagado FLOAT NOT NULL, fecha DATETIME, ip_cliente VARCHAR(15))");
+
     db.get("PRAGMA foreign_keys = ON");
 });
 
@@ -40,6 +43,15 @@ module.exports = {
             }
             //get the last insert id
             console.log(`A row in "categorias" has been inserted with rowid ${this.lastID}`);
+        });
+    },
+    insertCliente: function (email, contraseña) {
+        db.run("INSERT INTO clientes (email, contraseña) VALUES (?, ?)", [email, contraseña], function (err) {
+            if (err) {
+                throw err;
+            }
+            //get the last insert id
+            console.log(`A row in "clientes" has been inserted with rowid ${this.lastID}`);
         });
     },
     updateProducto1: function (prodID, callback) {
@@ -118,6 +130,13 @@ module.exports = {
             };
         });
     },
+    deleteCliente: function (id) {
+        db.run("DELETE FROM clientes WHERE id = ?", [id], function (err) {
+            if (err) {
+                throw err;
+            };
+        });
+    },
     selectProductoImagen: function (callback) {
         db.all("SELECT * FROM productos", [], (err, rows) => {
             if (err) {
@@ -190,6 +209,21 @@ module.exports = {
                     });
 
                     callback(combined);
+                });
+            };
+        });
+    },
+    selectCliente: function (callback) {
+        db.all("SELECT * FROM clientes", [], (err, rows) => {
+            if (err) {
+                throw err;
+            } else {
+                db.all("SELECT * FROM clientesDatos", [], (err, rows2) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    callback(rows, rows2);
                 });
             };
         });

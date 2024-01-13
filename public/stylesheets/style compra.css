@@ -23,7 +23,7 @@ label {
 	font-weight: bold;
 }
 
-input, textarea {
+input, textarea, select {
 	width: 100%;
 }
 
@@ -42,6 +42,11 @@ button {
 	font-weight: bold;
 	text-align: center;
 	padding: 12px;
+}
+
+span {
+	font-size: 36px;
+	font-weight: bold;
 }
 
 a:link, a:visited {
@@ -77,10 +82,28 @@ a:link, a:visited {
 	width: 100%;
 }
 
+#split {
+	display: grid;
+	grid-template-columns: 1fr 60%;
+	gap: 5%;
+}
+
+#left {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-between !important;
+}
+
 .last-input {
 	display: grid;
 	grid-template-columns: 1fr;
 	margin-top: 20px;
+}
+
+.destacado {
+	width: 100%;
+	height: auto;
 }
 
 .last-input input, .last-input textarea {
@@ -90,5 +113,10 @@ a:link, a:visited {
 @media screen and (max-width: 650px) {
 	#form {
 		grid-template-columns: 1fr;
+	}
+
+	#split {
+		grid-template-columns: 1fr;
+		gap: 20px;
 	}
 }

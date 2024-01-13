@@ -1,6 +1,7 @@
 var express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const db = require('../database');
+const jwt = require('jsonwebtoken');
 var router = express.Router();
 
 /* GET login page. */
@@ -16,13 +17,13 @@ router.get('/index_admin', function(req, res, next) {
 /* GET public home page */
 router.get('/index_public', function(req, res, next) {
   db.selectProdImg((data) => {
-    console.log(data)
     res.render('index_public', { products: data });
   });
 });
 
 /* GET Product page */
 router.get('/index_public/producto_venta/:id', function(req, res, next) {
+
   let prodID = req.params.id;
 
   console.log(prodID);
@@ -30,6 +31,19 @@ router.get('/index_public/producto_venta/:id', function(req, res, next) {
   db.selectVenta(prodID, (data) => {
     console.log(data);
     res.render('producto_venta', { products: data })
+  });
+});
+
+/* GET Product Buying page. */
+router.get('/index_public/producto_venta/:id/producto_compra', function(req, res, next) {
+
+  let prodID = req.params.id;
+
+  console.log(prodID);
+
+  db.selectVenta(prodID, (data) => {
+    console.log(data);
+    res.render('producto_compra', { products: data })
   });
 });
 
@@ -98,6 +112,27 @@ router.get('/categoria_listado/categoria_modificar/:id', function(req, res, next
     console.log(rows);
     res.render('categoria_modificar', { data: rows });
   });
+});
+
+/* GET Clients Listing page. */
+router.get('/clientes_listado', function(req, res, next) {
+  db.selectCliente((rows, rows2) => {
+    console.log(rows, rows2);
+    res.render('clientes_listado', {
+      data: rows,
+      data2: rows2
+    });
+  });
+});
+
+/* GET Clients signup page. */
+router.get('/clientes_registro', function(req, res, next) {
+  res.render('clientes_registro');
+});
+
+/* GET Clients signin page. */
+router.get('/clientes_ingreso', function(req, res, next) {
+  res.render('clientes_ingreso');
 });
 
 router.post('/login', function(req, res, next) {
@@ -210,6 +245,77 @@ router.post('/modificarCategoria', function(req, res, next) {
   db.updateCategoria2(nombre, id);
 
   res.redirect('/categoria_listado');
+});
+
+router.post('/registro', function(req, res, next) {
+  let email = req.body.email;
+  let contraseña = req.body.pwd;
+
+  const token = jwt.sign({ 'email': email, 'pwd': contraseña }, process.env.JWT_KEY, { expiresIn: '30m' });
+
+  console.log({ email, token });
+
+  db.insertCliente(email, token);
+
+  res.redirect('/');
+});
+
+router.post('/eliminarCliente', function(req, res, next) {
+  let id = req.body.id;
+
+  console.log({ id });
+
+  db.deleteCliente(id);
+
+  res.redirect('/clientes_listado');
+});
+
+router.post('/realizarCompra', function(req, res) {
+
+  const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJkYXRlIjoiMjAyNC0wMS0xM1QwMjozMjowMS41MTZaIiwiaWF0IjoxNzA1MTEzMTIxfQ.yTOnrLajL2aQfqdLjdNl7MLtDZPGv96w7WlKeQBvcPk";
+  const apiUrl = "https://fakepayment.onrender.com";
+
+  const paymentData = {
+    "amount": req.body.amount,
+    "card-number": req.body.card_number,
+    "cvv": req.body.cvv,
+    "expiration-month": req.body.expiration_month,
+    "expiration-year": req.body.expiration_year,
+    "full-name": req.body.full_name,
+    "currency": "USD",
+    "description": "N/A",
+    "reference": "N/A"
+  };
+
+  jwt.verify(sessionToken, JWT, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token inválido, por favor inicie sesión' })
+    }
+  })
+
+  console.log({ paymentData} );
+
+  fetch(apiUrl + "/payments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(paymentData),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.error === "token") {
+      window.location.href = "/clientes_ingreso";
+    } else {
+      console.log("Response:", data);
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+  res.redirect('/index_public');
 });
 
 module.exports = router;

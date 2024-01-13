@@ -39,4 +39,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.post("/post", async (req, res) => {
+  const name = req.body.name;
+  const response_key = req.body["g-recaptcha-response"];
+  const secret_key = process.env.PRIVATE_KEY;
+  const options = {
+    url: `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.PRIVATE_KEY}&response=${response_key}`,
+    headers: { "Content-Type": "application/x-www-form-urlencoded", 'json': true }
+  }
+});
+
 module.exports = app;
