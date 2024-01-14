@@ -260,6 +260,20 @@ router.post('/registro', function(req, res, next) {
   res.redirect('/');
 });
 
+router.post('/ingreso', function(req, res, next) {
+  let email = req.body.email;
+  let contraseña = req.body.pwd;
+
+  const decoded = jwt.decode('token');
+  console.log(decoded);
+
+  if (decoded.indexOf(contraseña) > -1) {
+    res.redirect('/index_public');
+  } else {
+    return res.status(401).json({ message: 'Contraseña incorrecta, intente nuevamente.' });
+  };
+});
+
 router.post('/eliminarCliente', function(req, res, next) {
   let id = req.body.id;
 

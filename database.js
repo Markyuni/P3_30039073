@@ -227,5 +227,14 @@ module.exports = {
                 });
             };
         });
+    },
+    loginCliente: function (callback) {
+        db.all("SELECT * FROM clientes where email = ? AND contraseña = ?", [email, contraseña], (err, row) => {
+            if (err) {
+                throw err;
+            }
+
+            callback(row);
+        });
     }
 }
