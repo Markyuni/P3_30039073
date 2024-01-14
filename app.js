@@ -1,6 +1,7 @@
 var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 var express = require('express');
+var session = require('express-session');
 var logger = require('morgan');
 var path = require('path');
 var dotenv = require('dotenv').config()
@@ -21,14 +22,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// express-session setup
+app.use(session({
+    secret : process.env.SESSION_SECRET,
+    resave : true,
+    saveUninitialized: true
+}));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
+// dotenv setup
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -40,6 +41,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+// reCaptcha server validation
 app.post("/post", async (req, res) => {
   const name = req.body.name;
   const response_key = req.body["g-recaptcha-response"];

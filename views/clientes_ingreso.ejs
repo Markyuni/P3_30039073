@@ -15,14 +15,21 @@
 
 <body>
 	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Inicio de Sesión</h1>
+		<h1 style="text-align: center; font-weight: bold">
+			Lentes de Sol para Toda la Familia
+		</h1>
+		<h2 style="text-align: center; font-weight: normal">Inicio de Sesión</h2>
 		<hr>
 		<p style="margin: 0px;">Ingrese sus Datos.</a></p>
 		<br>
 		<form action="/ingreso" method="post">
+			<div id="email">
+				<label for="email">Correo</label>
+				<input type="text" id="email" name="email" required>
+			</div>
 			<div id="password">
 				<label for="pwd">Contraseña</label>
-				<input type="password" id="pwd" name="pwd">
+				<input type="password" id="pwd" name="pwd" required>
 			</div>
 			<br>
 			<div id="form-submit">

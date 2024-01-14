@@ -34,6 +34,12 @@ a:link, a:visited {
 	text-decoration: none;
 }
 
+#others {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 0.5em;
+}
+
 #filtering {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -52,6 +58,26 @@ a:link, a:visited {
 	display: block;
 	padding: 30px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.other_links {
+	background-color: #142b4f;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: large;
+	padding: 30px 0px;
+	width: 100%;
+}
+
+.other_links:hover {
+	background-color: #25518a;
+}
+
+.other_links:active {
+	background-color: #0b1930;
+	cursor: default;
 }
 
 .lista-productos {

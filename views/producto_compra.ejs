@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>
-		Registro de Cliente
+		<% products.forEach(function(product) { %>
+		<%= product.nombre %> 
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -15,18 +16,23 @@
 
 <body>
 	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Registro del Cliente</h1>
+		<h1 style="text-align: center; font-weight: bold;">Lentes de Sol para Toda la Familia</h1>
+		<h2 style="text-align: center; font-weight: normal;">Compra del Producto</h2>
 		<hr>
 		<p style="margin: 0px;">Para finalizar su compra, se requerirá ingresar sus credenciales.</a></p>
 		<br>
 		<form action="/realizarCompra" method="post">
-			<% products.forEach(function(product) { %>
 			<div id="producto_id">
 				<input type="hidden" name="producto_id" value="<%= product.id %>">
 			</div>
+			<div id="description" class="justify">
+				<label for="description">Descripción</label>
+				<p>"<%= product.descripcion %>."</p>
+				<input type="hidden" id="description" name="description" value="<%= product.descripcion %>">
+			</div>
 			<div id="full_name">
 				<label for="full_name">Nombre Completo</label>
-				<input type="text" id="full_name" name="full_name">
+				<input type="text" id="full_name" name="full_name" required>
 			</div>
 			<div id="card_number">
 				<label for="card_number">Tarjeta de Crédito</label>
@@ -53,11 +59,11 @@
 			</div>
 			<div id="cvv">
 				<label for="cantidad">Cantidad</label>
-				<input id="inputAmountQuantity" type="number" min="1" name="cantidad" value="1">
+				<input id="inputAmountQuantity" type="number" min="1" name="cantidad" value="1" required>
 			</div>
 			<div id="amount">
-			<p>Precio Total: <span id="totalAmountCost">$<%= product.precio %></span></p>
-			<input type="hidden" id="totalAmountCost" name="amount" value="$<%= product.precio %>">
+			<p>Precio Total: <span id="totalAmountCostSpan">$<%= product.precio %></span></p>
+			<input type="hidden" id="totalAmountCostInput" name="amount" value="$<%= product.precio %>">
 			<br>
 			<div id="form-submit">
 				<button type="submit">Completar compra</button>
@@ -65,25 +71,26 @@
 		</form>
 
 		<script>
-			var amountInput = document.getElementById("totalAmountCost");
+			var amountInput = document.getElementById("totalAmountCostInput");
 			var inputAmountQuantity = document.getElementById("inputAmountQuantity");
 			var amountCost = parseFloat("<%= product.precio %>");
+			var totalAmountCostSpan = document.getElementById("totalAmountCostSpan");
 
-			function changeCost( num ) {
-			  var cost = new Number( parseFloat( num ) * amountCost).toFixed(2);
+			function changeCost(num) {
+			  var cost = new Number(parseFloat(num) * amountCost).toFixed(2);
 			  return cost;
 			}
 
-			inputAmountQuantity.addEventListener('input', function( event ) {
+			inputAmountQuantity.addEventListener('input', function(event) {
 			  var value = event.target.value;
-			  if ( !isNaN( value ) ) {
-			    amountInput.innerHTML = '$' + changeCost( value ).replace('.', ',');
+			  if (!isNaN(value)) {
+			    var cost = changeCost(value).replace('.', ',');;
+			    amountInput.value = '$' + cost;
+			    totalAmountCostSpan.textContent = '$' + cost;
 			  }
 			});
 		</script>
 		<% }); %>
-		<br>
-		<p style="text-align: center;">¿Ya estas registrado?<a target="_self" href="/index_public">Inicia tu sesión</a></p>
 	</div>
 </body>
 </html>

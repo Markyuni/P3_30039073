@@ -11,7 +11,7 @@ let db = new sqlite3.Database('./lentesSol.db', (err) => {
     db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE)");
 
     db.run("CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL, contraseña TEXT NOT NULL)");
-    db.run("CREATE TABLE IF NOT EXISTS clientesDatos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER NOT NULL, producto_id INTEGER NOT NULL, cantidad INTEGER NOT NULL, total_pagado FLOAT NOT NULL, fecha DATETIME, ip_cliente VARCHAR(15))");
+    db.run("CREATE TABLE IF NOT EXISTS clientesDatos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER NOT NULL, producto_id INTEGER NOT NULL, cantidad INTEGER NOT NULL, total_pagado FLOAT NOT NULL, fecha DATETIME, cliente_ip VARCHAR(15), FOREIGN KEY (cliente_id) REFERENCES clientes (id) ON DELETE CASCADE)");
 
     db.get("PRAGMA foreign_keys = ON");
 });
@@ -45,13 +45,22 @@ module.exports = {
             console.log(`A row in "categorias" has been inserted with rowid ${this.lastID}`);
         });
     },
-    insertCliente: function (email, contraseña) {
-        db.run("INSERT INTO clientes (email, contraseña) VALUES (?, ?)", [email, contraseña], function (err) {
+    insertCliente: function (correo, contraseña) {
+        db.run("INSERT INTO clientes (email, contraseña) VALUES (?, ?)", [correo, contraseña], function (err) {
             if (err) {
                 throw err;
             }
             //get the last insert id
             console.log(`A row in "clientes" has been inserted with rowid ${this.lastID}`);
+        });
+    },
+    insertClienteDatos: function (cliente_id, producto_id, cantidad, amount, date, cliente_ip) {
+        db.run("INSERT INTO clientesDatos (cliente_id, producto_id, cantidad, total_pagado, fecha, cliente_ip) VALUES (?, ?, ?, ?, ?, ?)", [cliente_id, producto_id, cantidad, amount, date, cliente_ip], function (err) {
+            if (err) {
+                throw err;
+            }
+            //get the last insert id
+            console.log(`A row in "clientesDatos" has been inserted with rowid ${this.lastID}`);
         });
     },
     updateProducto1: function (prodID, callback) {
@@ -228,8 +237,8 @@ module.exports = {
             };
         });
     },
-    loginCliente: function (callback) {
-        db.all("SELECT * FROM clientes where email = ? AND contraseña = ?", [email, contraseña], (err, row) => {
+    loginCliente: function (correo, callback) {
+        db.all("SELECT * FROM clientes where email = ?", [correo], (err, row) => {
             if (err) {
                 throw err;
             }
