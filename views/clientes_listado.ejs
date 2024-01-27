@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>
-		Listado de Clientes
+		Listado de Productos
 	</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -15,10 +15,7 @@
 
 <body>
 	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold">
-			Lentes de Sol para Toda la Familia
-		</h1>
-		<h2 style="text-align: center; font-weight: normal">Listado de Clientes</h2>
+		<h1 style="text-align: center; font-weight: bold;">Listado de Productos</h1>
 		<hr>
 		<h2 style="text-align: center;">Usuarios</h2>
 		<% if (data.length > 0) { %>
@@ -65,6 +62,7 @@
 					<th>Precio Total</th>
 					<th>Fecha</th>
 					<th>IP del Cliente</th>
+					<th>Acciones</th>
 				</tr>	
 			</thead>
 			<tbody>
@@ -77,6 +75,14 @@
 					<td><%= row2.total_pagado %></td>
 					<td><%= row2.fecha %></td>
 					<td><%= row2.ip_cliente %></td>
+					<td>
+						<div id="buttons">
+							<form action="/eliminarCategoria" method="post">
+								<input name="id" type="hidden" value="<%= row.id %>">
+								<input class="delete_button" type="submit" value="">
+							</form>
+						</div>
+					</td>
 				</tr>
 				<% }); %>
 			</tbody>

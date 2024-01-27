@@ -15,8 +15,7 @@
 
 <body>
 	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Lentes de Sol para Toda la Familia</h1>
-		<h2 style="text-align: center; font-weight: normal;">Listado de Productos</h2>
+		<h1 style="text-align: center; font-weight: bold;">Listado de Productos</h1>
 		<hr>
 		<h2 style="text-align: center;">Productos</h2>
 		<% if (data.length > 0) { %>
@@ -85,7 +84,7 @@
 					<td><%= row2.producto_id %></td>
 					<td>
 						<div id="buttons">
-							<a class="view_button" target="_self" href="<%= row2.url %>"></a>
+							<a class="view_button" target="_blank" href="<%= row2.url %>"></a>
 							<form action="/producto_listado/imagen_modificar/<%= row2.id %>" method="get">
 								<input class="modify_button" type="submit" value="">
 							</form>

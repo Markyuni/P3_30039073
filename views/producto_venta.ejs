@@ -11,8 +11,6 @@
 
     <body>
         <div id="screen">
-            <h1 style="text-align: center; font-weight: bold;">Lentes de Sol para Toda la Familia</h1>
-            <h2 style="text-align: center; font-weight: normal;">Vista del Producto</h2>
             <div id="split">
                 <div id="left">
                 <% products.forEach(function(product) { %>
@@ -50,7 +48,7 @@
                     </div>
                     <div id="precio_boton">
                         <p>Precio: <span>$<%= product.precio %></span></p>
-                        <form action="/producto_compra/<%= product.id %>" method="get" target="_self">
+                        <form action="/clientes_ingreso" method="get" target="_blank">
                             <input class="buy_button" type="submit" value="">
                         </form>
                     </div>
