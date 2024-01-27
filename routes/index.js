@@ -1,11 +1,22 @@
 var express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const db = require('../database');
-const jwt = require('jsonwebtoken');
 var router = express.Router();
 
-/* GET login page. */
+/* GET public home page */
 router.get('/', function(req, res, next) {
+  let user = req.session.status;
+  if(user == undefined) {
+    req.session.status = 'inactive';
+  } 
+
+  db.selectProdImg((data) => {
+    res.render('index_public', { products: data });
+  });
+});
+
+/* GET admin login page. */
+router.get('/admin_login', function(req, res, next) {
   res.render('login');
 });
 
@@ -14,16 +25,8 @@ router.get('/index_admin', function(req, res, next) {
   res.render('index_admin');
 });
 
-/* GET public home page */
-router.get('/index_public', function(req, res, next) {
-  db.selectProdImg((data) => {
-    res.render('index_public', { products: data });
-  });
-});
-
 /* GET Product page */
-router.get('/index_public/producto_venta/:id', function(req, res, next) {
-
+router.get('/producto_venta/:id', function(req, res, next) {
   let prodID = req.params.id;
 
   console.log(prodID);
@@ -35,11 +38,13 @@ router.get('/index_public/producto_venta/:id', function(req, res, next) {
 });
 
 /* GET Product Buying page. */
-router.get('/index_public/producto_venta/:id/producto_compra', function(req, res, next) {
-
+router.get('/producto_compra/:id', function(req, res, next) {
   let prodID = req.params.id;
 
-  console.log(prodID);
+  const status = req.session.status;
+  if (status !== 'active') {
+    res.redirect('/clientes_ingreso');
+  }
 
   db.selectVenta(prodID, (data) => {
     console.log(data);
@@ -248,30 +253,41 @@ router.post('/modificarCategoria', function(req, res, next) {
 });
 
 router.post('/registro', function(req, res, next) {
-  let email = req.body.email;
+  let correo = req.body.email;
   let contraseña = req.body.pwd;
+  let contraseña2 = req.body.pwd2;
 
-  const token = jwt.sign({ 'email': email, 'pwd': contraseña }, process.env.JWT_KEY, { expiresIn: '30m' });
+  console.log({ correo, contraseña, contraseña2 });
 
-  console.log({ email, token });
+  if (contraseña === contraseña2) {
+    db.insertCliente(correo, contraseña);
 
-  db.insertCliente(email, token);
-
-  res.redirect('/');
+    res.redirect('/');
+  } else {
+    console.log("Las contraseñas no coinciden");
+    
+    res.redirect('/clientes_registro');
+  };
 });
 
 router.post('/ingreso', function(req, res, next) {
-  let email = req.body.email;
+  let correo = req.body.email;
   let contraseña = req.body.pwd;
 
-  const decoded = jwt.decode('token');
-  console.log(decoded);
+  db.loginCliente(correo, (row) => {
+    console.log(row);
 
-  if (decoded.indexOf(contraseña) > -1) {
-    res.redirect('/index_public');
-  } else {
-    return res.status(401).json({ message: 'Contraseña incorrecta, intente nuevamente.' });
-  };
+    if (row[0].contraseña === contraseña) {
+      console.log("Inicio de sesión exitoso.");
+      
+      req.session.userID = row[0].id;
+      req.session.status = "active";
+
+      res.redirect('/');
+    } else {
+      res.send("Contraseña incorrecta.");
+    }
+  });
 });
 
 router.post('/eliminarCliente', function(req, res, next) {
@@ -289,29 +305,30 @@ router.post('/realizarCompra', function(req, res) {
   const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJkYXRlIjoiMjAyNC0wMS0xM1QwMjozMjowMS41MTZaIiwiaWF0IjoxNzA1MTEzMTIxfQ.yTOnrLajL2aQfqdLjdNl7MLtDZPGv96w7WlKeQBvcPk";
   const apiUrl = "https://fakepayment.onrender.com";
 
+  let cliente_id = req.session.userID;
   let producto_id = req.body.producto_id;
   let cantidad = req.body.cantidad;
   let amount = req.body.amount;
-  let date = new Date();
+  let date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
   console.log({ producto_id, cantidad, amount, date, ip })
 
-  const myIP = ip.split(",")[0];
+  const cliente_ip = ip.split(",")[0];
+
+  db.insertClienteDatos(cliente_id, producto_id, cantidad, amount, date, cliente_ip);
 
   const paymentData = {
     "amount": amount,
     "card-number": req.body.card_number,
     "cvv": req.body.cvv,
+    "description": req.body.description,
     "expiration-month": req.body.expiration_month,
     "expiration-year": req.body.expiration_year,
     "full-name": req.body.full_name,
     "currency": "USD",
-    "description": "N/A",
     "reference": "N/A"
   };
-
-  console.log({ paymentData} );
 
   fetch(apiUrl + "/payments", {
     method: "POST",
@@ -323,17 +340,13 @@ router.post('/realizarCompra', function(req, res) {
   })
   .then((response) => response.json())
   .then((data) => {
-    if (data.error === "token") {
-      window.location.href = "/clientes_ingreso";
-    } else {
-      console.log("Response:", data);
-    }
+    console.log("Response:", data);
   })
   .catch((error) => {
     console.error("Error:", error);
   });
 
-  res.redirect('/index_public');
+  res.redirect('/');
 });
 
 module.exports = router;

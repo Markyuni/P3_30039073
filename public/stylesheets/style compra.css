@@ -95,6 +95,11 @@ a:link, a:visited {
 	justify-content: space-between !important;
 }
 
+.justify {
+	text-align: center;
+	font-style: italic;
+}
+
 .last-input {
 	display: grid;
 	grid-template-columns: 1fr;

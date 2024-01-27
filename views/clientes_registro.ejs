@@ -16,23 +16,29 @@
 
 <body>
 	<div id="screen">
-		<h1 style="text-align: center; font-weight: bold;">Registro del Cliente</h1>
+		<h1 style="text-align: center; font-weight: bold">
+			Lentes de Sol para Toda la Familia
+		</h1>
+		<h2 style="text-align: center; font-weight: normal">Registro</h2>
 		<hr>
 		<p style="margin: 0px;">Ingrese sus Datos a Registrar.</a></p>
 		<br>
 		<form action="/registro" method="post">
 			<div id="email">
 				<label for="email">Email</label>
-				<input type="text" name="email" id="email">
+				<input type="text" name="email" id="email" required>
 			</div>
 			<div id="password">
 				<label for="pwd">Contraseña</label>
-				<input type="password" id="pwd" name="pwd">
+				<input type="password" id="pwd" name="pwd" required>
+			</div>
+			<div id="password2">
+				<label for="pwd2">Verificar Contraseña</label>
+				<input type="password" id="pwd2" name="pwd2" required>
 			</div>
 			<br>
 			<div style="text-align: center;">
-	    		<div class="g-recaptcha" data-sitekey="6LfrE00pAAAAAAnfRJNS-gHmUzE_atDLuyPc_5X4" style="display: inline-block;">
-				</div>
+	    		<div class="g-recaptcha" data-sitekey="6LfrE00pAAAAAAnfRJNS-gHmUzE_atDLuyPc_5X4" style="display: inline-block;"></div>
 			</div>
 			<br>
 			<div id="form-submit">
