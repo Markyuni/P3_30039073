@@ -1,6 +1,6 @@
 var express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const db = require('../database');
+const nodemailer = require('nodemailer');
 var router = express.Router();
 
 /* GET public home page */
@@ -140,6 +140,20 @@ router.get('/clientes_ingreso', function(req, res, next) {
   res.render('clientes_ingreso');
 });
 
+/* GET Password recovery page. */
+router.get('/recover', function (req, res) {
+  res.render('contraseña_recuperar');
+});
+
+/* GET Ratings average */
+router.get('/api/ratings/average/:id', (req, res) => {
+  const producto_id = req.params.id;
+
+  db.averageRating(producto_id, (row) => {
+    res.json({ average: row.average });
+  });
+});
+
 router.post('/login', function(req, res, next) {
   let admin = req.body.admin;
   let pwd = req.body.pwd;
@@ -262,6 +276,32 @@ router.post('/registro', function(req, res, next) {
   if (contraseña === contraseña2) {
     db.insertCliente(correo, contraseña);
 
+  const transporter = nodemailer.createTransport({
+    host: process.env.HOST,
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.AUTH_USER_FROM,
+      pass: process.env.AUTH_PASS
+    }
+  });
+
+  const mailOptions = {
+    from: process.env.AUTH_USER_FROM,
+    to: process.env.TO,						// local
+  //  to: correo,										// render
+    subject: 'Registro hecho exitosamente',
+    text: 'Bienvenido, nuevo usuario. Es un placer tenerlo en nuestro sitio web.\nQue disfrute su estadía.'
+  }
+
+  transporter.sendMail(mailOptions, function(error,info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Correo enviado: ' + info.response);
+    }
+  });
+
     res.redirect('/');
   } else {
     console.log("Las contraseñas no coinciden");
@@ -280,6 +320,7 @@ router.post('/ingreso', function(req, res, next) {
     if (row[0].contraseña === contraseña) {
       console.log("Inicio de sesión exitoso.");
       
+      req.session.correo = row[0].email;
       req.session.userID = row[0].id;
       req.session.status = "active";
 
@@ -288,6 +329,46 @@ router.post('/ingreso', function(req, res, next) {
       res.send("Contraseña incorrecta.");
     }
   });
+});
+
+router.post('/recover', function(req, res) {
+  let correo = req.body.email;
+
+  db.recoverContraseña(correo, (datos) => {
+  	if (!datos) {
+    	console.log('No se encontraron datos para el correo electrónico proporcionado.');
+    	return;
+  	}
+
+	  const transporter = nodemailer.createTransport({
+	    host: process.env.HOST,
+	    port: 465,
+	    secure: true,
+	    auth: {
+	      user: process.env.AUTH_USER_FROM,
+	      pass: process.env.AUTH_PASS
+	    }
+	  });
+
+	  const mailOptions = {
+	    from: process.env.AUTH_USER_FROM,
+	    to: process.env.TO,								// local
+	  //  to: correo,												// render
+	    subject: 'Recuperación de contraseña',
+	    text: `Parece ser que había perdido su contraseña.\nContraseña: ${datos[0].contraseña}`,
+	    html: `<p>Parece ser que había perdido su contraseña.<p><br><p>Contraseña: ${datos[0].contraseña}</p>`
+	  }
+
+	  transporter.sendMail(mailOptions, function(error,info){
+	    if (error) {
+	      console.log(error);
+	    } else {
+	      console.log('Correo enviado: ' + info.response);
+	    }
+	  });
+  });
+
+  res.redirect('/');
 });
 
 router.post('/eliminarCliente', function(req, res, next) {
@@ -305,17 +386,20 @@ router.post('/realizarCompra', function(req, res) {
   const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJkYXRlIjoiMjAyNC0wMS0xM1QwMjozMjowMS41MTZaIiwiaWF0IjoxNzA1MTEzMTIxfQ.yTOnrLajL2aQfqdLjdNl7MLtDZPGv96w7WlKeQBvcPk";
   const apiUrl = "https://fakepayment.onrender.com";
 
+  let correo = req.session.correo;
   let cliente_id = req.session.userID;
   let producto_id = req.body.producto_id;
+  let rating = req.body.rating;
   let cantidad = req.body.cantidad;
   let amount = req.body.amount;
   let date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-  console.log({ producto_id, cantidad, amount, date, ip })
-
   const cliente_ip = ip.split(",")[0];
 
+  console.log({ correo, cliente_id, producto_id, rating, cantidad, amount, date, cliente_ip });
+
+  db.countRating(producto_id, cliente_id, rating);
   db.insertClienteDatos(cliente_id, producto_id, cantidad, amount, date, cliente_ip);
 
   const paymentData = {
@@ -344,6 +428,32 @@ router.post('/realizarCompra', function(req, res) {
   })
   .catch((error) => {
     console.error("Error:", error);
+  });
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.HOST,
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.AUTH_USER_FROM,
+      pass: process.env.AUTH_PASS
+    }
+  });
+
+  const mailOptions = {
+    from: process.env.AUTH_USER_FROM,
+    to: process.env.TO,								// local
+  //  to: correo,												// render
+    subject: 'Compra realizada correctamente',
+    text: `Su compra ha sido realizada correctamente.\nMuchas gracias por comprar en Lentes de Sol para Toda la Familia.`
+  }
+
+  transporter.sendMail(mailOptions, function(error,info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Correo enviado: ' + info.response);
+    }
   });
 
   res.redirect('/');

@@ -7,11 +7,13 @@ let db = new sqlite3.Database('./lentesSol.db', (err) => {
     console.log('Connected to the SQlite database.');
 
     db.run("CREATE TABLE IF NOT EXISTS categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL)");
-    db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio FLOAT NOT NULL, descripcion TEXT NOT NULL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE)");
+    db.run("CREATE TABLE IF NOT EXISTS productos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, color TEXT NOT NULL, talla TEXT NOT NULL, codigo TEXT NOT NULL, precio FLOAT NOT NULL, descripcion TEXT NOT NULL, avg_rating REAL, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE)");
     db.run("CREATE TABLE IF NOT EXISTS imagenes (id INTEGER PRIMARY KEY AUTOINCREMENT, url STRING, destacado TEXT, producto_id INTEGER, FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE)");
 
     db.run("CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL, contraseña TEXT NOT NULL)");
     db.run("CREATE TABLE IF NOT EXISTS clientesDatos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER NOT NULL, producto_id INTEGER NOT NULL, cantidad INTEGER NOT NULL, total_pagado FLOAT NOT NULL, fecha DATETIME, cliente_ip VARCHAR(15), FOREIGN KEY (cliente_id) REFERENCES clientes (id) ON DELETE CASCADE)");
+
+    db.run("CREATE TABLE IF NOT EXISTS ratings (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER NOT NULL, user_id INTEGER NOT NULL, rating INTEGER NOT NULL, UNIQUE (product_id, user_id), FOREIGN KEY (product_id) REFERENCES productos (id), FOREIGN KEY (user_id) REFERENCES clientes (id))");
 
     db.get("PRAGMA foreign_keys = ON");
 });
@@ -244,6 +246,41 @@ module.exports = {
             }
 
             callback(row);
+        });
+    },
+    recoverContraseña: function (correo, callback) {
+        db.all("SELECT id, contraseña FROM clientes where email = ?", [correo], (err, datos) => {
+            if (err) {
+                throw err;
+            }
+
+            console.log({ datos });
+            callback(datos);
+        });
+    },
+    countRating: function (producto_id, cliente_id, rating, callback) {
+        db.all("SELECT COUNT(*) as count FROM ratings WHERE product_id = ? AND user_id = ?", [producto_id, cliente_id], (err, row) => {
+            if (err) {
+                throw err;
+            }
+
+            if (row.length > 0 && row[0].count > 0) {
+                throw new Error("Ya has calificado este producto");
+            }
+
+            db.run("INSERT INTO ratings (product_id, user_id, rating) VALUES (?, ?, ?)", [producto_id, cliente_id, rating], (err) => {
+                if (err) {
+                    throw err;
+                }
+
+                db.run("UPDATE productos SET avg_rating = (SELECT AVG(rating) FROM ratings WHERE product_id = ?) WHERE id = ?", [producto_id, producto_id], (err) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    console.log("Calificación guardada.")
+                });
+            });
         });
     }
 }

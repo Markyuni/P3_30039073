@@ -2,12 +2,38 @@
 <html lang="es">
 
 <head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCXNCP933P"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-WCXNCP933P');
+	</script>
+
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Entrada al Sitio</title>
 
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style interfaz_public.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQq7Ml8WsgGqQYGK2xGKRNz9guEZIWNAQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Propiedades de Open Graph Protocol -->
+    <meta property="og:title" content='Pagina Principal'>
+    <meta property="og:type" content='Interfaz'>
+    <meta property="og:url" content='https://programacion-iii-evaluacion-4.onrender.com/index_public'>
+    <meta property="og:site_name" content='Lentes de Sol para Toda la Familia'>
+    <meta property="og:description" content='Esta es la interfaz pública, la pagina principal del sitio.'>
+
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "WebPage",
+			"name": "Lentes de Sol para Toda la Familia"
+		}
+	</script>
 </head>
 
 <body>
@@ -67,6 +93,11 @@
 				<br>
 				<input type="text" name="categoria-id" placeholder="Filtrar por ID de la categoría..." id="categoria-id" onkeyup="filtro()"/>
 			</div>
+			<div id="filter-calificacion">
+				<label for="calificacion">Calificación</label>
+				<br>
+				<input type="number" min="0" max="5" name="calificacion" placeholder="Filtrar por calificación..." id="calificacion" value="0" oninput="filtro()"/>
+			</div>
 		</div>
 
 		<script>
@@ -78,6 +109,7 @@
 				let colorFilter = document.getElementById('color').value.toLowerCase();
 				let codigoFilter = document.getElementById('codigo').value.toLowerCase();
 				let catIdFilter = document.getElementById('categoria-id').value.toLowerCase();
+				let calificacionFilter = document.getElementById('calificacion').value.toLowerCase();
 
 				// Obtén todos los productos
 				let productos = document.getElementsByClassName("product");
@@ -92,9 +124,9 @@
 					let colorProducto = productos[i].getElementsByClassName("product_color")[0].textContent.toLowerCase();
 					let codigoProducto = productos[i].getElementsByClassName("product_codigo")[0].textContent.toLowerCase();
 					let catIdProducto = productos[i].getElementsByClassName("product_categoria_id")[0].textContent.toLowerCase();
-
+					let calificacionProducto = productos[i].getElementsByClassName("product_calificacion")[0].textContent.toLowerCase();
 					// Comprueba si el nombre del producto incluye el valor del filtro
-					if (!nombreProducto.includes(nombreFilter) || !descProducto.includes(descFilter) || !tallaProducto.includes(tallaFilter) || !colorProducto.includes(colorFilter) || !codigoProducto.includes(codigoFilter) || !catIdProducto.includes(catIdFilter)) {
+					if (!nombreProducto.includes(nombreFilter) || !descProducto.includes(descFilter) || !tallaProducto.includes(tallaFilter) || !colorProducto.includes(colorFilter) || !codigoProducto.includes(codigoFilter) || !catIdProducto.includes(catIdFilter) || !calificacionProducto.includes(calificacionFilter)) {
 					// Si es así, muestra el producto
 					productos[i].style.display = "none";
 					} else {
@@ -119,6 +151,7 @@
 				<p class="product_codigo">Código: <%= product.codigo %></p>
 				<p class="product_categoria_id">Categoría: <%= product.categoria_id %></p>
 				<p class="product_precio">Precio: $<%= product.precio %></p>
+				<p class="product_calificacion">Calificación: <%= product.avg_rating || 0 %> </p>
 				<br>
 				<form action="/producto_venta/<%= product.id %>" method="get" target="_self">
 				<input class="select_button" type="submit" value="">

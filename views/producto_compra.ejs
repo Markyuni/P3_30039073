@@ -2,6 +2,16 @@
 <html lang="es">
 
 <head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCXNCP933P"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-WCXNCP933P');
+	</script>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>
@@ -12,6 +22,20 @@
 	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style compra.css">
 
+	<!-- Propiedades de Open Graph Protocol -->
+	<meta property="og:title" content='Finalizar Compra'>
+	<meta property="og:type" content='Producto'>
+	<meta property="og:url" content='https://programacion-iii-evaluacion-4.onrender.com/producto_compra'>
+	<meta property="og:site_name" content='Lentes de Sol para Toda la Familia'>
+	<meta property="og:description" content='Aqui se finaliza la compra del producto.'>
+
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "WebPage",
+			"name": "Lentes de Sol para Toda la Familia"
+		}
+	</script>
 </head>
 
 <body>
@@ -62,8 +86,24 @@
 				<input id="inputAmountQuantity" type="number" min="1" name="cantidad" value="1" required>
 			</div>
 			<div id="amount">
-			<p>Precio Total: <span id="totalAmountCostSpan">$<%= product.precio %></span></p>
-			<input type="hidden" id="totalAmountCostInput" name="amount" value="$<%= product.precio %>">
+				<p>Precio Total: <span id="totalAmountCostSpan">$<%= product.precio %></span></p>
+				<input type="hidden" id="totalAmountCostInput" name="amount" value="$<%= product.precio %>">
+			</div>
+			<div class="calificacion">
+				<p>Calificación: </p>
+				<div class="rating">
+			        <input type="radio" id="star5" name="rating" value="5" />
+			        <label for="star5" title="5 estrellas">★</label>
+			        <input type="radio" id="star4" name="rating" value="4" />
+			        <label for="star4" title="4 estrellas">★</label>
+			        <input type="radio" id="star3" name="rating" value="3" />
+			        <label for="star3" title="3 estrellas">★</label>
+			        <input type="radio" id="star2" name="rating" value="2" />
+			        <label for="star2" title="2 estrellas">★</label>
+			        <input type="radio" id="star1" name="rating" value="1" />
+			        <label for="star1" title="1 estrella">★</label>
+				</div>
+			</div>
 			<br>
 			<div id="form-submit">
 				<button type="submit">Completar compra</button>

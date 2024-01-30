@@ -1,6 +1,6 @@
 {
   "name": "p3_30039073",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Paquetes para Programación III",
   "main": "main.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.8",
     "path": "^0.12.7",
     "sqlite3": "^5.1.6"
   }

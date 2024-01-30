@@ -145,6 +145,12 @@ a:link, a:visited {
 }
 
 @media screen and (max-width: 850px) {
+	#others {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+	
 	#filtering {
 		grid-template-columns: 1fr;
 	}

@@ -111,6 +111,36 @@ a:link, a:visited {
 	height: auto;
 }
 
+.calificacion {
+	display: flex;
+}
+
+.rating {
+	display: inline-flex;
+	align-items: center;
+	flex-direction: row-reverse;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    color: #555;
+    font-size: 42px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.rating label:hover, .rating label:hover ~ label {
+  color: #70A2E1;
+}
+
+.rating input:checked ~ label {
+	color: #1B44E3;
+}
+
 .last-input input, .last-input textarea {
 	width: 99%;
 }
